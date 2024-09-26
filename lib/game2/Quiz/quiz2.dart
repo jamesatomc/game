@@ -82,7 +82,7 @@ Question(
   int incorrectAnswers = 0;
   int answeredQuestions = 0;
   final int maxIncorrectAnswers = 2;
-  final int totalQuestions = 3;
+  final int totalQuestions = 2;
   final Random random = Random();
   final AudioPlayer audioPlayer = AudioPlayer();
 
@@ -111,15 +111,13 @@ Question(
     setState(() {
       selectedAnswerIndex = selectedIndex;
       showAnswer = true;
-      if (selectedIndex != currentQuestion.correctAnswerIndex) {
-        incorrectAnswers++;
-      }
       if (selectedIndex == currentQuestion.correctAnswerIndex) {
         _playCorrectAnswerSound();
+        answeredQuestions++;
       } else {
         _playIncorrectAnswerSound();
+        incorrectAnswers++;
       }
-      answeredQuestions++;
     });
 
 

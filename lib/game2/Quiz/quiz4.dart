@@ -74,18 +74,18 @@ class _Quiz4State extends State<Quiz4> {
     // More questions...
   ];
 
-     late List<Question> remainingQuestions;
+  late List<Question> remainingQuestions;
   late Question currentQuestion;
   int? selectedAnswerIndex;
   bool showAnswer = false;
   int incorrectAnswers = 0;
   int answeredQuestions = 0;
   final int maxIncorrectAnswers = 2;
-  final int totalQuestions = 2;
+  final int totalQuestions = 3;
   final Random random = Random();
   final AudioPlayer audioPlayer = AudioPlayer();
 
-   @override
+  @override
   void initState() {
     super.initState();
     remainingQuestions = List.from(questions);
@@ -110,19 +110,20 @@ class _Quiz4State extends State<Quiz4> {
     setState(() {
       selectedAnswerIndex = selectedIndex;
       showAnswer = true;
-      if (selectedIndex == currentQuestion.correctAnswerIndex) {
-        _playCorrectAnswerSound();
-        answeredQuestions++;
-      } else {
-        _playIncorrectAnswerSound();
+      if (selectedIndex != currentQuestion.correctAnswerIndex) {
         incorrectAnswers++;
       }
+      if (selectedIndex == currentQuestion.correctAnswerIndex) {
+        _playCorrectAnswerSound();
+      } else {
+        _playIncorrectAnswerSound();
+      }
+      answeredQuestions++;
     });
 
 
-
     // Delay to show the answer before loading the next question
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (answeredQuestions >= totalQuestions) {
         _showCompletionScreen();
       } else if (incorrectAnswers >= maxIncorrectAnswers) {
@@ -160,7 +161,7 @@ class _Quiz4State extends State<Quiz4> {
           overlayBuilderMap: {
             'BackButton': (context, game) => BackButtonOverlay(
                   onPressed: () {
-                    // Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => GameJump()),
@@ -185,14 +186,9 @@ class _Quiz4State extends State<Quiz4> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => GameJump()),
-                    );
                 Navigator.of(context).pop(); // ปิด AlertDialog
                 Navigator.pop(context); // กลับไปหน้าหลัก
-                widget.onResumeMusic
-                    ?.call(); // Call the function to resume music
+                widget.onResumeMusic?.call(); // Call the function to resume music
               },
               child: const Text('ออกจากเกม'),
             ),

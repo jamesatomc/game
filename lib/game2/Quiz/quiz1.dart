@@ -186,10 +186,9 @@ class _Quiz1State extends State<Quiz1> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
-                Navigator.pop(context); // Go back to the previous screen
-                widget.onResumeMusic
-                    ?.call(); // Call the function to resume music
+                Navigator.of(context).pop();
+                Navigator.pop(context);
+                widget.onResumeMusic?.call(); // Call the function to resume music
               },
               child: const Text('ออกจากเกม'),
             ),

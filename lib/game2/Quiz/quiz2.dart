@@ -21,7 +21,6 @@ class quiz2 extends StatefulWidget {
 class _Quiz2State extends State<quiz2> {
   List<Question> questions = [
     // Add your questions here, following the same format as below:
-    
 Question(
       'คำถาม\n You can see a rainbow in _____ season. ',
       ["rainy", " winter ", "spring", "summer"],
@@ -76,7 +75,7 @@ Question(
     // More questions...
   ];
 
-    late List<Question> remainingQuestions;
+  late List<Question> remainingQuestions;
   late Question currentQuestion;
   int? selectedAnswerIndex;
   bool showAnswer = false;

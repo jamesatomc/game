@@ -253,13 +253,13 @@ joystick = JoystickComponent(
     camera.viewfinder.anchor = Anchor.center;
   }
 
-   @override
-  void onTapUp(TapUpEvent event) async {
-    super.onTapUp(event);
-    if (!isPlayerDead) {
-      myPlayer.moveJump();
-    }
-  }
+  //  @override
+  // void onTapUp(TapUpEvent event) async {
+  //   super.onTapUp(event);
+  //   if (!isPlayerDead) {
+  //     myPlayer.moveJump();
+  //   }
+  // }
   
   @override
   void update(double dt) {

@@ -159,13 +159,12 @@ class _Quiz10State extends State<Quiz10> {
           overlayBuilderMap: {
             'BackButton': (context, game) => BackButtonOverlay(
                   onPressed: () {
-                    // Navigator.pop(context);
                     Navigator.of(context).pop();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => GameJump()),
                     );
-                  }, onResumeMusic: () { widget.onResumeMusic?.call(); },
+                  }, onResumeMusic: () {},
                 ),
           },
         ),
@@ -184,10 +183,9 @@ class _Quiz10State extends State<Quiz10> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
-                Navigator.pop(context); // Go back to the previous screen
-                widget.onResumeMusic
-                    ?.call(); // Call the function to resume music
+                Navigator.of(context).pop();
+                Navigator.pop(context);
+                widget.onResumeMusic?.call(); // Call the function to resume music
               },
               child: const Text('ออกจากเกม'),
             ),
@@ -203,7 +201,6 @@ class _Quiz10State extends State<Quiz10> {
       },
     );
   }
-
 
 // void showExitDialog(BuildContext context, Function? onResumeMusic) {
 //     showDialog(

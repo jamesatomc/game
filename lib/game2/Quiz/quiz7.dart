@@ -187,8 +187,7 @@ class _Quiz7State extends State<Quiz7> {
               onPressed: () {
                 Navigator.of(context).pop(); // ปิด AlertDialog
                 Navigator.pop(context); // กลับไปหน้าหลัก
-                widget.onResumeMusic
-                    ?.call(); // Call the function to resume music
+                widget.onResumeMusic?.call(); // Call the function to resume music
               },
               child: const Text('ออกจากเกม'),
             ),

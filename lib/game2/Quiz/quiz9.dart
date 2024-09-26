@@ -1,5 +1,4 @@
-
- import 'package:flame/game.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:game_somo/game2/Level/jump9.dart';
@@ -22,7 +21,7 @@ class Quiz9 extends StatefulWidget {
 class _Quiz9State extends State<Quiz9> {
   List<Question> questions = [
     // Add your questions here, following the same format as below:
-      Question(
+    Question(
       "คำถาม\n A person who sends letters is ________.",
       ["policeman", "flight attendant", "mail carrier", "pilot"],
       2,
@@ -34,7 +33,12 @@ class _Quiz9State extends State<Quiz9> {
     ),
     Question(
       "คำถาม\n New Year Day is on _______.",
-      ["January the first", "January the one", "February the first", "February the one"],
+      [
+        "January the first",
+        "January the one",
+        "February the first",
+        "February the one"
+      ],
       0,
     ),
     Question(
@@ -49,7 +53,12 @@ class _Quiz9State extends State<Quiz9> {
     ),
     Question(
       "คำถาม\n Halloween is on ______.",
-      ["October the thirty-one", "October the thirty-first", "October the thirteenth", "October the thirtieth"],
+      [
+        "October the thirty-one",
+        "October the thirty-first",
+        "October the thirteenth",
+        "October the thirtieth"
+      ],
       1,
     ),
     Question(
@@ -59,22 +68,37 @@ class _Quiz9State extends State<Quiz9> {
     ),
     Question(
       "คำถาม\n __________ are the names of month.",
-      ["Monday, Tuesday, Friday", "May, June, September", "cat, snail, penguin", "candy store, bookstore"],
+      [
+        "Monday, Tuesday, Friday",
+        "May, June, September",
+        "cat, snail, penguin",
+        "candy store, bookstore"
+      ],
       1,
     ),
     Question(
       "คำถาม\n Today __________ because I have a toothache.",
-      ["I'm going to see the pilot", "I going to see the dentist", "I going to the dentist", "I'm going to see the dentist"],
+      [
+        "I'm going to see the pilot",
+        "I going to see the dentist",
+        "I going to the dentist",
+        "I'm going to see the dentist"
+      ],
       3,
     ),
     Question(
       "คำถาม\n A : __________.\nB : I was at the bus station.",
-      ["What's the weather like today?", "Will you take out the trash?", "Where were you at 06:30?", "1 and 3 are correct."],
+      [
+        "What's the weather like today?",
+        "Will you take out the trash?",
+        "Where were you at 06:30?",
+        "1 and 3 are correct."
+      ],
       2,
     ),
     // More questions...
   ];
-      late List<Question> remainingQuestions;
+  late List<Question> remainingQuestions;
   late Question currentQuestion;
   int? selectedAnswerIndex;
   bool showAnswer = false;
@@ -85,7 +109,7 @@ class _Quiz9State extends State<Quiz9> {
   final Random random = Random();
   final AudioPlayer audioPlayer = AudioPlayer();
 
-   @override
+  @override
   void initState() {
     super.initState();
     remainingQuestions = List.from(questions);
@@ -118,8 +142,6 @@ class _Quiz9State extends State<Quiz9> {
         incorrectAnswers++;
       }
     });
-
-
 
     // Delay to show the answer before loading the next question
     Future.delayed(const Duration(seconds: 2), () {
@@ -165,7 +187,8 @@ class _Quiz9State extends State<Quiz9> {
                       context,
                       MaterialPageRoute(builder: (context) => GameJump()),
                     );
-                  }, onResumeMusic: () { widget.onResumeMusic?.call(); },
+                  },
+                  onResumeMusic: () {},
                 ),
           },
         ),
@@ -184,8 +207,8 @@ class _Quiz9State extends State<Quiz9> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Close the dialog
-                Navigator.pop(context); // Go back to the previous screen
+                Navigator.of(context).pop();
+                Navigator.pop(context);
                 widget.onResumeMusic
                     ?.call(); // Call the function to resume music
               },
@@ -203,7 +226,6 @@ class _Quiz9State extends State<Quiz9> {
       },
     );
   }
-
 
 // void showExitDialog(BuildContext context, Function? onResumeMusic) {
 //     showDialog(
@@ -263,14 +285,13 @@ class _Quiz9State extends State<Quiz9> {
                       children: [
                         const SizedBox(height: 30),
                         Expanded(
-                                child: Text(
-                                  'Quiz',
-                                  style: TextStyle(
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 3, 232, 221))
-                                  ),
-                                ),
-                              
+                          child: Text('Quiz',
+                              style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 3, 232, 221))),
+                        ),
                         Row(
                           children: [
                             const SizedBox(width: 30),

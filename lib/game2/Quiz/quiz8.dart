@@ -74,7 +74,7 @@ class _Quiz8State extends State<Quiz8> {
     // More questions...
   ];
 
-      late List<Question> remainingQuestions;
+  late List<Question> remainingQuestions;
   late Question currentQuestion;
   int? selectedAnswerIndex;
   bool showAnswer = false;
@@ -187,8 +187,7 @@ class _Quiz8State extends State<Quiz8> {
               onPressed: () {
                 Navigator.of(context).pop(); // ปิด AlertDialog
                 Navigator.pop(context); // กลับไปหน้าหลัก
-                widget.onResumeMusic
-                    ?.call(); // Call the function to resume music
+                widget.onResumeMusic?.call(); // Call the function to resume music
               },
               child: const Text('ออกจากเกม'),
             ),

@@ -43,24 +43,22 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _audioPlayer = AudioPlayer();
     _playBackgroundMusic();
-    _loadCoinScores(); // Load coin scores from SharedPreferences
+    _loadCoinScores();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _stopBackgroundMusic();
     _audioPlayer.dispose();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.detached) {
-      _stopBackgroundMusic();
+    if (state == AppLifecycleState.paused) {
+      _pauseBackgroundMusic();
     } else if (state == AppLifecycleState.resumed) {
-      _playBackgroundMusic();
+      _resumeBackgroundMusic();
     }
   }
 
@@ -74,6 +72,22 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
       } catch (e) {
         print('Error playing background music: $e');
       }
+    }
+  }
+
+  void _pauseBackgroundMusic() {
+    if (_isMusicPlaying) {
+      _audioPlayer.pause();
+      _isMusicPlaying = false;
+      print('Background music paused');
+    }
+  }
+
+  void _resumeBackgroundMusic() {
+    if (!_isMusicPlaying) {
+      _audioPlayer.resume();
+      _isMusicPlaying = true;
+      print('Background music resumed');
     }
   }
 
@@ -102,172 +116,187 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-                'assets/images/bg2.gif'), // Replace with your GIF path
-            fit: BoxFit.cover,
+    return WillPopScope(
+      onWillPop: () async {
+        _stopBackgroundMusic();
+        return true;
+      },
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                  'assets/images/bg2.gif'), // Replace with your GIF path
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Stack(
-          children: [
-            // Back button positioned at the top left corner
-            Positioned(
-              top: 16.0,
-              left: 16.0,
-              child: ElevatedButton(
-                onPressed: () {
-                  _stopBackgroundMusic();
-                  Navigator.pop(context); // Close the dialog
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(16.0),
-                  backgroundColor: Colors
-                      .transparent, // Make the button background transparent
-                ),
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: 32.0,
+          child: Stack(
+            children: [
+              // Back button positioned at the top left corner
+              Positioned(
+                top: 16.0,
+                left: 16.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _stopBackgroundMusic();
+                    Navigator.pop(context); // Close the dialog
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(16.0),
+                    backgroundColor: Colors
+                        .transparent, // Make the button background transparent
+                  ),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 32.0,
+                  ),
                 ),
               ),
-            ),
 
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      PixelLevelButton2(
-                        level: 1,
-                        isUnlocked: true,
-                        nextScreen: Quiz1(
-                            onResumeMusic:
-                                _playBackgroundMusic), // Pass the function
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                      PixelLevelButton2(
-                        level: 2,
-                        isUnlocked:
-                            level1CoinScore != null && level1CoinScore! >= 10,
-                        nextScreen: Quiz2(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                      PixelLevelButton2(
-                        level: 3,
-                        isUnlocked:
-                            level2CoinScore != null && level2CoinScore! >= 10,
-                        nextScreen: Quiz3(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                      PixelLevelButton2(
-                        level: 4,
-                        isUnlocked:
-                            level3CoinScore != null && level3CoinScore! >= 12,
-                        nextScreen: Quiz4(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                      PixelLevelButton2(
-                        level: 5,
-                        isUnlocked:
-                            level4CoinScore != null && level4CoinScore! >= 12,
-                        nextScreen: Quiz5(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      PixelLevelButton2(
-                        level: 6,
-                        isUnlocked:
-                            level5CoinScore != null && level5CoinScore! >= 14,
-                        nextScreen: Quiz6(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                      PixelLevelButton2(
-                        level: 7,
-                        isUnlocked:
-                            level6CoinScore != null && level6CoinScore! >= 14,
-                        nextScreen: Quiz7(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                      PixelLevelButton2(
-                        level: 8,
-                        isUnlocked:
-                            level7CoinScore != null && level7CoinScore! >= 16,
-                        nextScreen: Quiz8(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                      PixelLevelButton2(
-                        level: 9,
-                        isUnlocked:
-                            level8CoinScore != null && level8CoinScore! >= 16,
-                        nextScreen: Quiz9(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                      PixelLevelButton2(
-                        level: 10,
-                        isUnlocked:
-                            level9CoinScore != null && level9CoinScore! >= 18,
-                        nextScreen: Quiz10(onResumeMusic: _playBackgroundMusic),
-                        onTapUp: () {},
-                        onTapDown: () {},
-                        onTapCancel: () {},
-                        onTap: _stopBackgroundMusic,
-                      ),
-                      const SizedBox(width: 10),
-                    ],
-                  ),
-                ],
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        PixelLevelButton2(
+                          level: 1,
+                          isUnlocked: true,
+                          nextScreen: Quiz1(
+                              onResumeMusic:
+                                  _playBackgroundMusic), // Pass the function
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                        PixelLevelButton2(
+                          level: 2,
+                          isUnlocked:
+                              level1CoinScore != null && level1CoinScore! >= 10,
+                          nextScreen:
+                              Quiz2(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                        PixelLevelButton2(
+                          level: 3,
+                          isUnlocked:
+                              level2CoinScore != null && level2CoinScore! >= 10,
+                          nextScreen:
+                              Quiz3(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                        PixelLevelButton2(
+                          level: 4,
+                          isUnlocked:
+                              level3CoinScore != null && level3CoinScore! >= 12,
+                          nextScreen:
+                              Quiz4(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                        PixelLevelButton2(
+                          level: 5,
+                          isUnlocked:
+                              level4CoinScore != null && level4CoinScore! >= 12,
+                          nextScreen:
+                              Quiz5(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        PixelLevelButton2(
+                          level: 6,
+                          isUnlocked:
+                              level5CoinScore != null && level5CoinScore! >= 14,
+                          nextScreen:
+                              Quiz6(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                        PixelLevelButton2(
+                          level: 7,
+                          isUnlocked:
+                              level6CoinScore != null && level6CoinScore! >= 14,
+                          nextScreen:
+                              Quiz7(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                        PixelLevelButton2(
+                          level: 8,
+                          isUnlocked:
+                              level7CoinScore != null && level7CoinScore! >= 16,
+                          nextScreen:
+                              Quiz8(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                        PixelLevelButton2(
+                          level: 9,
+                          isUnlocked:
+                              level8CoinScore != null && level8CoinScore! >= 16,
+                          nextScreen:
+                              Quiz9(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                        PixelLevelButton2(
+                          level: 10,
+                          isUnlocked:
+                              level9CoinScore != null && level9CoinScore! >= 18,
+                          nextScreen:
+                              Quiz10(onResumeMusic: _playBackgroundMusic),
+                          onTapUp: () {},
+                          onTapDown: () {},
+                          onTapCancel: () {},
+                          onTap: _stopBackgroundMusic,
+                        ),
+                        const SizedBox(width: 10),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

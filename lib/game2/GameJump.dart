@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:game_somo/game2/Quiz/quiz10.dart';
-import 'package:game_somo/game2/Quiz/quiz4.dart';
-import 'package:game_somo/game2/Quiz/quiz5.dart';
-import 'package:game_somo/game2/Quiz/quiz6.dart';
-import 'package:game_somo/game2/Quiz/quiz7.dart';
-import 'package:game_somo/game2/Quiz/quiz8.dart';
-import 'package:game_somo/game2/Quiz/quiz9.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Quiz/quiz1.dart';
 import 'Quiz/quiz2.dart';
 import 'Quiz/quiz3.dart';
+import 'Quiz/quiz4.dart';
+import 'Quiz/quiz5.dart';
+import 'Quiz/quiz6.dart';
+import 'Quiz/quiz7.dart';
+import 'Quiz/quiz8.dart';
+import 'Quiz/quiz9.dart';
+import 'Quiz/quiz10.dart';
+
+
 import 'components/LevelButton2.dart';
 
 class GameJump extends StatefulWidget {

@@ -212,9 +212,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         level: 6,
                         isUnlocked:
                             level5CoinScore != null && level5CoinScore! >= 14,
-                        nextScreen: Quiz6(
-                            onResumeMusic:
-                                _playBackgroundMusic), // Pass the function
+                        nextScreen: Quiz6(onResumeMusic: _playBackgroundMusic),
                         onTapUp: () {},
                         onTapDown: () {},
                         onTapCancel: () {},

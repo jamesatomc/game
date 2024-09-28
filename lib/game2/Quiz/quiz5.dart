@@ -173,36 +173,80 @@ class _Quiz5State extends State<Quiz5> {
     );
   }
 
-  void _showFailScreen() {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // Prevent closing by tapping outside
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('เสียใจด้วย'),
-          content: const Text('คุณต้องการลองอีกครั้งหรือไม่?'),
-          actions: [
-            TextButton(
+void _showFailScreen() {
+  showDialog(
+    context: context,
+    barrierDismissible: false, // Prevent closing by tapping outside
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Colors.black.withOpacity(0.7), // Semi-transparent black background
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        title: Column(
+          children: [
+            Icon(
+              Icons.error_outline,
+              color: Colors.red,
+              size: 50,
+            ),
+            SizedBox(height: 10),
+            Text(
+              'เสียใจด้วย',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        ),
+        content: Text(
+          'คุณต้องการลองอีกครั้งหรือไม่?',
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.white, // Ensure text is readable on dark background
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // ปิด AlertDialog
                 Navigator.pop(context); // กลับไปหน้าหลัก
-                widget.onResumeMusic
-                    ?.call(); // Call the function to resume music
+                widget.onResumeMusic?.call(); // Call the function to resume music
               },
-              child: const Text('ออกจากเกม'),
+              child: Text(
+                'ออกจากเกม',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.red,
+                ),
+              ),
             ),
-            TextButton(
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _resetQuiz();
               },
-              child: const Text('ลองอีกครั้ง'),
+              child: Text(
+                'ลองอีกครั้ง',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.green,
+                ),
+              ),
             ),
-          ],
-        );
-      },
-    );
-  }
+          ),
+        ],
+      );
+    },
+  );
+}
 
 // void showExitDialog(BuildContext context, Function? onResumeMusic) {
 //     showDialog(

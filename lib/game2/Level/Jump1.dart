@@ -52,6 +52,8 @@ class Jump1 extends FlameGame
 
   late JumpButton jumpButton;
   late ParallaxComponent parallax;
+  bool _isCurrentPage =
+      true; // New variable to track if this is the current page
 
   @override
   Future<void> onLoad() async {
@@ -173,7 +175,10 @@ class Jump1 extends FlameGame
           // Navigator.of(context).pop();
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const Quiz2()),
+            MaterialPageRoute(builder: (context) {
+              onPageExit(); // Call this before navigating away
+              return const Quiz2();
+            }),
           );
         },
       ),
@@ -184,12 +189,34 @@ class Jump1 extends FlameGame
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.detached) {
-      FlameAudio.bgm.pause();
-    } else if (state == AppLifecycleState.resumed) {
-      FlameAudio.bgm.resume();
+    if (_isCurrentPage) {
+      // Only manage audio if this is the current page
+      if (state == AppLifecycleState.paused ||
+          state == AppLifecycleState.inactive ||
+          state == AppLifecycleState.detached) {
+        FlameAudio.bgm.pause();
+      } else if (state == AppLifecycleState.resumed) {
+        FlameAudio.bgm.resume();
+      }
     }
+  }
+
+  // New method to call when navigating away from this page
+  void onPageExit() {
+    _isCurrentPage = false;
+    FlameAudio.bgm.pause();
+  }
+
+  // New method to call when returning to this page
+  void onPageEnter() {
+    _isCurrentPage = true;
+    FlameAudio.bgm.resume();
+  }
+
+  @override
+  void onRemove() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onRemove();
   }
 
   Future<void> loadLevel() async {

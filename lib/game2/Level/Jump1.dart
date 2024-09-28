@@ -1,6 +1,7 @@
 import 'package:flame/camera.dart';
 import 'package:flame/parallax.dart';
 import 'package:flutter/material.dart';
+import 'package:game_somo/game2/Quiz/quiz2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flame/game.dart';
 import 'package:flame/components.dart';
@@ -10,7 +11,6 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 
-import '../Quiz/quiz2.dart';
 import '../components/game-ui/bumpy.dart';
 import '../components/game-ui/cion.dart';
 import '../components/game-ui/game_over_overlay.dart';
@@ -170,7 +170,7 @@ joystick = JoystickComponent(
           // Navigator.of(context).pop();
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const quiz2()),
+            MaterialPageRoute(builder: (context) => const Quiz2()),
           );
         },
       ),

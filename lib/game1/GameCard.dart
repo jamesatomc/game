@@ -119,10 +119,12 @@ class _GameCardScreenState extends State<GameCardScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.black.withOpacity(0.8), // Black transparent background
           title: const Text(
             'High Scores',
             style: TextStyle(
               fontFamily: 'PixelFont', // Use a pixel art font
+              color: Colors.white, // White text color for visibility
             ),
           ),
           content: SingleChildScrollView(
@@ -135,6 +137,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -142,6 +145,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -149,6 +153,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -156,6 +161,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -163,6 +169,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -170,6 +177,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -177,6 +185,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -184,6 +193,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -191,6 +201,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 Text(
@@ -198,6 +209,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -206,6 +218,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
+                    color: Colors.white, // White text color for visibility
                   ),
                 ),
               ],

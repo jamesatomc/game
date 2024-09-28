@@ -261,7 +261,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                     AudioManager.stopMusic(); // Stop music when exiting
                     Navigator.pop(context); // Close the dialog
                     // Navigator.pop(context); // Go back to the previous screen
-      
+
                     // _showExitConfirmationDialog(); // Call the confirmation dialog
                   },
                   style: ElevatedButton.styleFrom(
@@ -352,8 +352,8 @@ class _GameCardScreenState extends State<GameCardScreen>
                         const SizedBox(width: 10),
                         PixelLevelButton(
                           level: 7,
-                          isUnlocked:
-                              level6HighScore != null && level6HighScore! >= 7.5,
+                          isUnlocked: level6HighScore != null &&
+                              level6HighScore! >= 7.5,
                           nextScreen: const Level7Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -362,8 +362,8 @@ class _GameCardScreenState extends State<GameCardScreen>
                         const SizedBox(width: 10),
                         PixelLevelButton(
                           level: 8,
-                          isUnlocked:
-                              level7HighScore != null && level7HighScore! >= 7.5,
+                          isUnlocked: level7HighScore != null &&
+                              level7HighScore! >= 7.5,
                           nextScreen: const Level8Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -372,8 +372,8 @@ class _GameCardScreenState extends State<GameCardScreen>
                         const SizedBox(width: 10),
                         PixelLevelButton(
                           level: 9,
-                          isUnlocked:
-                              level8HighScore != null && level8HighScore! >= 7.5,
+                          isUnlocked: level8HighScore != null &&
+                              level8HighScore! >= 7.5,
                           nextScreen: const Level9Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -399,8 +399,8 @@ class _GameCardScreenState extends State<GameCardScreen>
               Align(
                 alignment: Alignment.topRight,
                 child: Padding(
-                  padding:
-                      const EdgeInsets.all(14.0), // Adjust the padding as needed
+                  padding: const EdgeInsets.all(
+                      14.0), // Adjust the padding as needed
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -410,14 +410,16 @@ class _GameCardScreenState extends State<GameCardScreen>
                         builder: (context, snapshot) {
                           return IconButton(
                             icon: Icon(Icons.emoji_events,
-                                color: const Color.fromARGB(255, 209, 208, 208)),
+                                color:
+                                    const Color.fromARGB(255, 209, 208, 208)),
                             iconSize: 35, // Adjust icon size
                             onPressed: () {
                               _playSound(); // Play sound when button is pressed
                               showHighScoresDialog(context);
                             },
                             color: Colors.white, // Background color
-                            padding: EdgeInsets.all(5), // Padding around the icon
+                            padding:
+                                EdgeInsets.all(5), // Padding around the icon
                             splashRadius: 30, // Splash radius for the button
                           );
                         },

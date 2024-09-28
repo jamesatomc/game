@@ -85,7 +85,7 @@ class _GameCardScreenState extends State<GameCardScreen>
     WidgetsBinding.instance.addObserver(this);
     _loadHighScores();
     AudioManager.init();
-    AudioManager.playMusic();
+
   }
 
   @override

@@ -23,7 +23,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-// ืNote: Uncomment the following code to enable dynamic color switching
+// Note: Uncomment the following code to enable dynamic color switching
 // class _MyAppState extends State<MyApp> {
 //   @override
 //   Widget build(BuildContext context) {
@@ -196,11 +196,11 @@ class DeveloperInfoScreen extends StatelessWidget {
       );
     });
 
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Text(
               'Developer Information',
               style: TextStyle(

@@ -13,7 +13,6 @@ import 'Quiz/quiz8.dart';
 import 'Quiz/quiz9.dart';
 import 'Quiz/quiz10.dart';
 
-
 import 'components/LevelButton2.dart';
 
 class GameJump extends StatefulWidget {
@@ -23,7 +22,7 @@ class GameJump extends StatefulWidget {
   _GameJumpState createState() => _GameJumpState();
 }
 
-class _GameJumpState extends State<GameJump> {
+class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
   int? level1CoinScore;
   int? level2CoinScore;
   int? level3CoinScore;
@@ -41,28 +40,29 @@ class _GameJumpState extends State<GameJump> {
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     _audioPlayer = AudioPlayer();
     _playBackgroundMusic();
     _loadCoinScores(); // Load coin scores from SharedPreferences
   }
 
-  // @override
-  // void dispose() {
-  //   WidgetsBinding.instance.removeObserver(this);
-  //   _stopBackgroundMusic();
-  //   _audioPlayer.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _stopBackgroundMusic();
+    _audioPlayer.dispose();
+    super.dispose();
+  }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   if (state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
-  //     _stopBackgroundMusic();
-  //   } else if (state == AppLifecycleState.resumed) {
-  //     _playBackgroundMusic();
-  //   }
-  // }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      _stopBackgroundMusic();
+    } else if (state == AppLifecycleState.resumed) {
+      _playBackgroundMusic();
+    }
+  }
 
   Future<void> _playBackgroundMusic() async {
     if (!_isMusicPlaying) {
@@ -146,7 +146,8 @@ class _GameJumpState extends State<GameJump> {
                     children: [
                       PixelLevelButton2(
                         level: 1,
-                        isUnlocked: true,
+                        isUnlocked:
+                            level1CoinScore != null && level1CoinScore! >= 10,
                         nextScreen: Quiz1(
                             onResumeMusic:
                                 _playBackgroundMusic), // Pass the function
@@ -169,7 +170,8 @@ class _GameJumpState extends State<GameJump> {
                       const SizedBox(width: 10),
                       PixelLevelButton2(
                         level: 3,
-                        isUnlocked: false,
+                        isUnlocked:
+                            level2CoinScore != null && level2CoinScore! >= 10,
                         nextScreen: Quiz3(onResumeMusic: _playBackgroundMusic),
                         onTapUp: () {},
                         onTapDown: () {},
@@ -208,7 +210,8 @@ class _GameJumpState extends State<GameJump> {
                     children: [
                       PixelLevelButton2(
                         level: 6,
-                        isUnlocked: level5CoinScore != null && level5CoinScore! >= 14,
+                        isUnlocked:
+                            level5CoinScore != null && level5CoinScore! >= 14,
                         nextScreen: Quiz6(
                             onResumeMusic:
                                 _playBackgroundMusic), // Pass the function
@@ -244,7 +247,7 @@ class _GameJumpState extends State<GameJump> {
                         level: 9,
                         isUnlocked:
                             level8CoinScore != null && level8CoinScore! >= 16,
-                         nextScreen: Quiz9(onResumeMusic: _playBackgroundMusic),
+                        nextScreen: Quiz9(onResumeMusic: _playBackgroundMusic),
                         onTapUp: () {},
                         onTapDown: () {},
                         onTapCancel: () {},
@@ -255,7 +258,7 @@ class _GameJumpState extends State<GameJump> {
                         level: 10,
                         isUnlocked:
                             level9CoinScore != null && level9CoinScore! >= 18,
-                         nextScreen: Quiz10(onResumeMusic: _playBackgroundMusic),
+                        nextScreen: Quiz10(onResumeMusic: _playBackgroundMusic),
                         onTapUp: () {},
                         onTapDown: () {},
                         onTapCancel: () {},

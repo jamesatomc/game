@@ -23,7 +23,7 @@ class GameJump extends StatefulWidget {
   _GameJumpState createState() => _GameJumpState();
 }
 
-class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
+class _GameJumpState extends State<GameJump> {
   int? level1CoinScore;
   int? level2CoinScore;
   int? level3CoinScore;
@@ -41,28 +41,28 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
     _audioPlayer = AudioPlayer();
     _playBackgroundMusic();
     _loadCoinScores(); // Load coin scores from SharedPreferences
   }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _stopBackgroundMusic();
-    _audioPlayer.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   WidgetsBinding.instance.removeObserver(this);
+  //   _stopBackgroundMusic();
+  //   _audioPlayer.dispose();
+  //   super.dispose();
+  // }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
-      _stopBackgroundMusic();
-    } else if (state == AppLifecycleState.resumed) {
-      _playBackgroundMusic();
-    }
-  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
+  //     _stopBackgroundMusic();
+  //   } else if (state == AppLifecycleState.resumed) {
+  //     _playBackgroundMusic();
+  //   }
+  // }
 
   Future<void> _playBackgroundMusic() async {
     if (!_isMusicPlaying) {

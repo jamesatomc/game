@@ -21,7 +21,11 @@ import '../components/game-ui/player.dart';
 import '../components/game-ui/win_overlay.dart';
 
 class Jump1 extends FlameGame
-    with HasKeyboardHandlerComponents, HasCollisionDetection, TapCallbacks {
+    with
+        HasKeyboardHandlerComponents,
+        HasCollisionDetection,
+        TapCallbacks,
+        WidgetsBindingObserver {
   late Player myPlayer;
   late Cion myCoin;
   late Monsters monsters;
@@ -51,15 +55,16 @@ class Jump1 extends FlameGame
 
   @override
   Future<void> onLoad() async {
+    WidgetsBinding.instance.addObserver(this);
     initialLives = lives; // Initialize initialLives in onLoad
 
     // Load the saved coin score
     level1CoinScore = await getLevel1CoinScore() ?? 0;
-parallax = await loadParallaxComponent(
+    parallax = await loadParallaxComponent(
       [
         ParallaxImageData('bg/8.png'),
         ParallaxImageData('bg/11.png'),
-        ParallaxImageData('bg/12.png'), 
+        ParallaxImageData('bg/12.png'),
       ],
       size: Vector2(1900, 400),
       priority: -1,
@@ -97,7 +102,7 @@ parallax = await loadParallaxComponent(
       sprite: coinSprite,
       position: Vector2(livesImage.position.x + livesImage.size.x + 50, 30),
       size: Vector2(24, 24), // Set the size of the image
-      anchor: Anchor.topRight,priority: 1,
+      anchor: Anchor.topRight, priority: 1,
     );
 
 // Initialize coinsText
@@ -112,7 +117,8 @@ parallax = await loadParallaxComponent(
           fontSize: 20,
         ),
       ),
-    );coinsText.priority = 1;
+    );
+    coinsText.priority = 1;
 
     // Load the GIF background
     // background = SpriteComponent()
@@ -130,12 +136,9 @@ parallax = await loadParallaxComponent(
 
     await loadLevel();
 
-joystick = JoystickComponent(
+    joystick = JoystickComponent(
         knob: CircleComponent(
-             radius: 65,
-            paint: Paint()
-              ..color =
-                   Colors.grey.withOpacity(0.50)),
+            radius: 65, paint: Paint()..color = Colors.grey.withOpacity(0.50)),
         background: CircleComponent(
             radius: 100, paint: Paint()..color = Colors.grey.withOpacity(0.5)),
         margin: const EdgeInsets.only(left: 10, bottom: 20));
@@ -179,17 +182,27 @@ joystick = JoystickComponent(
     return super.onLoad();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      FlameAudio.bgm.pause();
+    } else if (state == AppLifecycleState.resumed) {
+      FlameAudio.bgm.resume();
+    }
+  }
+
   Future<void> loadLevel() async {
     // parallax = await loadParallaxComponent(
     //   [
     //     ParallaxImageData('bg/8.png'),
     //     ParallaxImageData('bg/11.png'),
-    //     ParallaxImageData('bg/12.png'), 
+    //     ParallaxImageData('bg/12.png'),
     //   ],
     //   size: Vector2(1900, 650),
     //   // priority: -1,
     // );
-    // world.add(parallax); 
+    // world.add(parallax);
 
     final level = await TiledComponent.load(
       "map.tmx",
@@ -267,7 +280,7 @@ joystick = JoystickComponent(
   //     myPlayer.moveJump();
   //   }
   // }
-  
+
   @override
   void update(double dt) {
     super.update(dt);
@@ -311,19 +324,19 @@ joystick = JoystickComponent(
         case JoystickDirection.downLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.upLeft:
+        case JoystickDirection.upLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.left:
+        case JoystickDirection.left:
           myPlayer.moveLeft();
           break;
         case JoystickDirection.right:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.downRight:
+        case JoystickDirection.downRight:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.upRight:
+        case JoystickDirection.upRight:
           myPlayer.moveRight();
           break;
         default:

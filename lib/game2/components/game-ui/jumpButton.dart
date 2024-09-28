@@ -8,7 +8,7 @@ class JumpButton extends PositionComponent with HasGameRef,TapCallbacks {
   bool _enabled = true;
   int _jumpCount = 0;  // เพิ่มตัวแปรเก็บจำนวนครั้งที่กระโดด
   final int maxJumpCount = 2;  // จำกัดจำนวนครั้งกระโดดสูงสุด
-  async.Timer? _cooldownTimer;
+  async.Timer? cooldownTimer;
 
   JumpButton({required this.onJumpButtonPressed});
 
@@ -38,7 +38,7 @@ class JumpButton extends PositionComponent with HasGameRef,TapCallbacks {
 
   void _startCooldown() {
     _enabled = false;
-    _cooldownTimer = async.Timer(const Duration(milliseconds: 1070), () {
+    cooldownTimer = async.Timer(const Duration(milliseconds: 1070), () {
       _enabled = true;
       _jumpCount = 0;  // รีเซ็ตตัวแปรการกระโดดเมื่อ cooldown สิ้นสุด
     });

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_somo/manu_game.dart';
 
-import 'game_button.dart';
 
 class NameInputScreen extends StatefulWidget {
   final Function(String) onSave;

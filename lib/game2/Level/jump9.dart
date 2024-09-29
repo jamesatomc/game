@@ -13,7 +13,6 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 
-
 import '../components/game-ui/bumpy.dart';
 import '../components/game-ui/cion.dart';
 import '../components/game-ui/game_over_overlay.dart';
@@ -24,7 +23,11 @@ import '../components/game-ui/player.dart';
 import '../components/game-ui/win_overlay.dart';
 
 class Jump9 extends FlameGame
-    with HasKeyboardHandlerComponents, HasCollisionDetection, TapCallbacks {
+    with
+        HasKeyboardHandlerComponents,
+        HasCollisionDetection,
+        TapCallbacks,
+        WidgetsBindingObserver {
   late Player myPlayer;
   late Cion myCoin;
   late Monsters monsters;
@@ -51,9 +54,11 @@ class Jump9 extends FlameGame
 
   late JumpButton jumpButton;
   late ParallaxComponent parallax;
+  bool _isCurrentPage = true;
 
   @override
   Future<void> onLoad() async {
+    WidgetsBinding.instance.addObserver(this);
     initialLives = lives; // Initialize initialLives in onLoad
 
     // Load the saved coin score
@@ -108,11 +113,10 @@ class Jump9 extends FlameGame
       ),
     );
 
-
     // Load the GIF background
     // background = SpriteComponent()
-      // ..sprite = await loadSprite('bgT1.png')
-      // ..size = Vector2(1700, 400);
+    // ..sprite = await loadSprite('bgT1.png')
+    // ..size = Vector2(1700, 400);
     FlameAudio.bgm.play("bg.mp3");
 
     // Add the background to the game world
@@ -127,10 +131,7 @@ class Jump9 extends FlameGame
 
     joystick = JoystickComponent(
         knob: CircleComponent(
-             radius: 65,
-            paint: Paint()
-              ..color =
-                   Colors.grey.withOpacity(0.50)),
+            radius: 65, paint: Paint()..color = Colors.grey.withOpacity(0.50)),
         background: CircleComponent(
             radius: 100, paint: Paint()..color = Colors.grey.withOpacity(0.5)),
         margin: const EdgeInsets.only(left: 10, bottom: 20));
@@ -165,7 +166,10 @@ class Jump9 extends FlameGame
           // Navigator.of(context).pop();
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const Quiz10()),
+            MaterialPageRoute(builder: (context) {
+              onPageExit(); // Call this before navigating away
+              return const Quiz10();
+            }),
           );
         },
       ),
@@ -174,13 +178,44 @@ class Jump9 extends FlameGame
     return super.onLoad();
   }
 
-  Future<void> loadLevel() async {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_isCurrentPage) {
+      // Only manage audio if this is the current page
+      if (state == AppLifecycleState.paused ||
+          state == AppLifecycleState.inactive ||
+          state == AppLifecycleState.detached) {
+        FlameAudio.bgm.pause();
+      } else if (state == AppLifecycleState.resumed) {
+        FlameAudio.bgm.resume();
+      }
+    }
+  }
 
-     parallax = await loadParallaxComponent(
+  // New method to call when navigating away from this page
+  void onPageExit() {
+    _isCurrentPage = false;
+    FlameAudio.bgm.pause();
+  }
+
+  // New method to call when returning to this page
+  void onPageEnter() {
+    _isCurrentPage = true;
+    FlameAudio.bgm.resume();
+  }
+
+  @override
+  void onRemove() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onRemove();
+  }
+  
+  Future<void> loadLevel() async {
+    parallax = await loadParallaxComponent(
       [
         ParallaxImageData('bg/1.png'),
         ParallaxImageData('bg/2.png'),
-        ParallaxImageData('bg/3.png'), 
+        ParallaxImageData('bg/3.png'),
         ParallaxImageData('bg/4.png'),
         // ParallaxImageData('bg/5.png'),
         ParallaxImageData('bg/6.png'), // ระบุชื่อไฟล์รูปภาพพื้นหลัง
@@ -188,8 +223,8 @@ class Jump9 extends FlameGame
       size: Vector2(2560, 650),
       priority: -1,
     );
-    world.add(parallax); 
-    
+    world.add(parallax);
+
     final level = await TiledComponent.load(
       "map9.tmx",
       Vector2.all(16),
@@ -320,19 +355,19 @@ class Jump9 extends FlameGame
         case JoystickDirection.downLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.upLeft:
+        case JoystickDirection.upLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.left:
+        case JoystickDirection.left:
           myPlayer.moveLeft();
           break;
         case JoystickDirection.right:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.downRight:
+        case JoystickDirection.downRight:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.upRight:
+        case JoystickDirection.upRight:
           myPlayer.moveRight();
           break;
         default:

@@ -24,7 +24,7 @@ import '../components/game-ui/player.dart';
 import '../components/game-ui/win_overlay.dart';
 
 class Jump4 extends FlameGame
-    with HasKeyboardHandlerComponents, HasCollisionDetection, TapCallbacks {
+    with HasKeyboardHandlerComponents, HasCollisionDetection, TapCallbacks, WidgetsBindingObserver {
   late Player myPlayer;
   late Cion myCoin;
   late Monsters monsters;
@@ -51,17 +51,15 @@ class Jump4 extends FlameGame
 
   late JumpButton jumpButton;
   late ParallaxComponent parallax;
+  bool _isCurrentPage = true; 
 
   @override
   Future<void> onLoad() async {
+    WidgetsBinding.instance.addObserver(this);
     initialLives = lives; // Initialize initialLives in onLoad
 
     // Load the saved coin score
     level4CoinScore = await getLevel4CoinScore() ?? 0;
-
-// Load the lives image
-    final livesSprite = await loadSprite('lives.png');
-
     parallax = await loadParallaxComponent(
       [
         ParallaxImageData('bg/8.png'),
@@ -72,6 +70,8 @@ class Jump4 extends FlameGame
       priority: -1,
     );
     add(parallax);
+// Load the lives image
+    final livesSprite = await loadSprite('lives.png');
 
 // Initialize livesImage
     livesImage = SpriteComponent(
@@ -174,9 +174,10 @@ class Jump4 extends FlameGame
           // Navigate to Quiz2
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
-              builder: (context) => Quiz5(),
-            ),
+            MaterialPageRoute(builder: (context) {
+              onPageExit(); // Call this before navigating away
+              return const Quiz5();
+            }),
           );
         },
       ),
@@ -184,6 +185,38 @@ class Jump4 extends FlameGame
 
     return super.onLoad();
   }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_isCurrentPage) {
+      // Only manage audio if this is the current page
+      if (state == AppLifecycleState.paused ||
+          state == AppLifecycleState.inactive ||
+          state == AppLifecycleState.detached) {
+        FlameAudio.bgm.pause();
+      } else if (state == AppLifecycleState.resumed) {
+        FlameAudio.bgm.resume();
+      }
+    }
+  }
+
+  // New method to call when navigating away from this page
+  void onPageExit() {
+    _isCurrentPage = false;
+    FlameAudio.bgm.pause();
+  }
+
+  // New method to call when returning to this page
+  void onPageEnter() {
+    _isCurrentPage = true;
+    FlameAudio.bgm.resume();
+  }
+
+  @override
+  void onRemove() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onRemove();
+  }  
 
   Future<void> loadLevel() async {
 

@@ -13,7 +13,6 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 
-
 import '../components/game-ui/bumpy.dart';
 import '../components/game-ui/cion.dart';
 import '../components/game-ui/game_over_overlay.dart';
@@ -24,7 +23,11 @@ import '../components/game-ui/player.dart';
 import '../components/game-ui/win_overlay.dart';
 
 class Jump5 extends FlameGame
-    with HasKeyboardHandlerComponents, HasCollisionDetection, TapCallbacks {
+    with
+        HasKeyboardHandlerComponents,
+        HasCollisionDetection,
+        TapCallbacks,
+        WidgetsBindingObserver {
   late Player myPlayer;
   late Cion myCoin;
   late Monsters monsters;
@@ -47,14 +50,15 @@ class Jump5 extends FlameGame
   late TextComponent coinsText; // Declare a TextComponent for coins
   late SpriteComponent coinImage;
 
-
   bool isPlayerDead = false; // Flag to track if the player is dead
 
   late JumpButton jumpButton;
   late ParallaxComponent parallax;
+  bool _isCurrentPage = true;
 
   @override
   Future<void> onLoad() async {
+    WidgetsBinding.instance.addObserver(this);
     initialLives = lives; // Initialize initialLives in onLoad
 
     // Load the saved coin score
@@ -64,14 +68,14 @@ class Jump5 extends FlameGame
       [
         ParallaxImageData('bg/10.png'),
         ParallaxImageData('bg/11.png'),
-        ParallaxImageData('bg/12.png'), 
+        ParallaxImageData('bg/12.png'),
       ],
       size: Vector2(2560, 400),
       priority: -1,
     );
-    add(parallax); 
+    add(parallax);
 
-        final livesSprite = await loadSprite('lives.png');
+    final livesSprite = await loadSprite('lives.png');
 
 // Initialize livesImage
     livesImage = SpriteComponent(
@@ -81,7 +85,7 @@ class Jump5 extends FlameGame
       anchor: Anchor.topRight,
     );
 
-livesText = TextComponent(
+    livesText = TextComponent(
       text: '$lives',
       position: Vector2(200, 30), // Position on the far left
       anchor: Anchor.topRight, // Align text to top-right
@@ -118,7 +122,6 @@ livesText = TextComponent(
       ),
     );
 
-
     // Load the GIF background
     // background = SpriteComponent()
     //   ..sprite = await loadSprite('bg2.gif')
@@ -137,10 +140,7 @@ livesText = TextComponent(
 
     joystick = JoystickComponent(
         knob: CircleComponent(
-             radius: 65,
-            paint: Paint()
-              ..color =
-                   Colors.grey.withOpacity(0.50)),
+            radius: 65, paint: Paint()..color = Colors.grey.withOpacity(0.50)),
         background: CircleComponent(
             radius: 100, paint: Paint()..color = Colors.grey.withOpacity(0.5)),
         margin: const EdgeInsets.only(left: 10, bottom: 20));
@@ -174,9 +174,10 @@ livesText = TextComponent(
           // Navigate to Quiz2
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
-              builder: (context) => Quiz6(),
-            ),
+            MaterialPageRoute(builder: (context) {
+              onPageExit(); // Call this before navigating away
+              return const Quiz6();
+            }),
           );
         },
       ),
@@ -185,8 +186,39 @@ livesText = TextComponent(
     return super.onLoad();
   }
 
-  Future<void> loadLevel() async {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_isCurrentPage) {
+      // Only manage audio if this is the current page
+      if (state == AppLifecycleState.paused ||
+          state == AppLifecycleState.inactive ||
+          state == AppLifecycleState.detached) {
+        FlameAudio.bgm.pause();
+      } else if (state == AppLifecycleState.resumed) {
+        FlameAudio.bgm.resume();
+      }
+    }
+  }
 
+  // New method to call when navigating away from this page
+  void onPageExit() {
+    _isCurrentPage = false;
+    FlameAudio.bgm.pause();
+  }
+
+  // New method to call when returning to this page
+  void onPageEnter() {
+    _isCurrentPage = true;
+    FlameAudio.bgm.resume();
+  }
+
+  @override
+  void onRemove() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onRemove();
+  }  
+
+  Future<void> loadLevel() async {
     final level = await TiledComponent.load(
       "map5.tmx",
       Vector2.all(32),
@@ -311,25 +343,25 @@ livesText = TextComponent(
     resetGame();
   }
 
- updateJoystrick() {
+  updateJoystrick() {
     if (!isPlayerDead) {
       switch (joystick.direction) {
         case JoystickDirection.downLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.upLeft:
+        case JoystickDirection.upLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.left:
+        case JoystickDirection.left:
           myPlayer.moveLeft();
           break;
         case JoystickDirection.right:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.downRight:
+        case JoystickDirection.downRight:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.upRight:
+        case JoystickDirection.upRight:
           myPlayer.moveRight();
           break;
         default:

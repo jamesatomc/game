@@ -23,7 +23,11 @@ import '../components/game-ui/player.dart';
 import '../components/game-ui/win_overlay.dart';
 
 class Jump2 extends FlameGame
-    with HasKeyboardHandlerComponents, HasCollisionDetection, TapCallbacks {
+    with
+        HasKeyboardHandlerComponents,
+        HasCollisionDetection,
+        TapCallbacks,
+        WidgetsBindingObserver {
   late Player myPlayer;
   late Cion myCoin;
   late Monsters monsters;
@@ -50,25 +54,25 @@ class Jump2 extends FlameGame
 
   late JumpButton jumpButton;
   late ParallaxComponent parallax;
+  bool _isCurrentPage = true; 
 
   @override
   Future<void> onLoad() async {
+    WidgetsBinding.instance.addObserver(this);
     initialLives = lives; // Initialize initialLives in onLoad
 
     // Load the saved coin score
     level2CoinScore = await getLevel2CoinScore() ?? 0;
-
     parallax = await loadParallaxComponent(
       [
         ParallaxImageData('bg/8.png'),
         ParallaxImageData('bg/11.png'),
-        ParallaxImageData('bg/12.png'), 
+        ParallaxImageData('bg/12.png'),
       ],
       size: Vector2(1900, 400),
       priority: -1,
     );
     add(parallax);
-
 // Load the lives image
     final livesSprite = await loadSprite('lives.png');
 
@@ -118,7 +122,6 @@ class Jump2 extends FlameGame
       ),
     );
 
-
     // Load the GIF background
     // background = SpriteComponent()
     //   ..sprite = await loadSprite('bg2.gif')
@@ -137,10 +140,7 @@ class Jump2 extends FlameGame
 
     joystick = JoystickComponent(
         knob: CircleComponent(
-             radius: 65,
-            paint: Paint()
-              ..color =
-                   Colors.grey.withOpacity(0.50)),
+            radius: 65, paint: Paint()..color = Colors.grey.withOpacity(0.50)),
         background: CircleComponent(
             radius: 100, paint: Paint()..color = Colors.grey.withOpacity(0.5)),
         margin: const EdgeInsets.only(left: 10, bottom: 20));
@@ -175,7 +175,10 @@ class Jump2 extends FlameGame
           // Navigator.of(context).pop();
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const Quiz3()),
+            MaterialPageRoute(builder: (context) {
+              onPageExit(); // Call this before navigating away
+              return const Quiz3();
+            }),
           );
         },
       ),
@@ -184,8 +187,39 @@ class Jump2 extends FlameGame
     return super.onLoad();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_isCurrentPage) {
+      // Only manage audio if this is the current page
+      if (state == AppLifecycleState.paused ||
+          state == AppLifecycleState.inactive ||
+          state == AppLifecycleState.detached) {
+        FlameAudio.bgm.pause();
+      } else if (state == AppLifecycleState.resumed) {
+        FlameAudio.bgm.resume();
+      }
+    }
+  }
+
+  // New method to call when navigating away from this page
+  void onPageExit() {
+    _isCurrentPage = false;
+    FlameAudio.bgm.pause();
+  }
+
+  // New method to call when returning to this page
+  void onPageEnter() {
+    _isCurrentPage = true;
+    FlameAudio.bgm.resume();
+  }
+
+  @override
+  void onRemove() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onRemove();
+  }
+
   Future<void> loadLevel() async {
-    
     final level = await TiledComponent.load(
       "map2.tmx",
       Vector2.all(32),
@@ -316,19 +350,19 @@ class Jump2 extends FlameGame
         case JoystickDirection.downLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.upLeft:
+        case JoystickDirection.upLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.left:
+        case JoystickDirection.left:
           myPlayer.moveLeft();
           break;
         case JoystickDirection.right:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.downRight:
+        case JoystickDirection.downRight:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.upRight:
+        case JoystickDirection.upRight:
           myPlayer.moveRight();
           break;
         default:

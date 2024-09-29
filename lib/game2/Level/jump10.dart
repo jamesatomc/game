@@ -10,6 +10,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
+import '../GameJump.dart';
 import '../components/game-ui/bumpy.dart';
 import '../components/game-ui/cion.dart';
 import '../components/game-ui/game_over_overlay.dart';
@@ -18,9 +19,12 @@ import '../components/game-ui/jumpButton.dart';
 import '../components/game-ui/monsters.dart';
 import '../components/game-ui/player.dart';
 
-
 class Jump10 extends FlameGame
-    with HasKeyboardHandlerComponents, HasCollisionDetection, TapCallbacks {
+    with
+        HasKeyboardHandlerComponents,
+        HasCollisionDetection,
+        TapCallbacks,
+        WidgetsBindingObserver {
   late Player myPlayer;
   late Cion myCoin;
   late Monsters monsters;
@@ -47,9 +51,11 @@ class Jump10 extends FlameGame
 
   late JumpButton jumpButton;
   late ParallaxComponent parallax;
+  bool _isCurrentPage = true;
 
   @override
   Future<void> onLoad() async {
+    WidgetsBinding.instance.addObserver(this);
     initialLives = lives; // Initialize initialLives in onLoad
 
     // Load the saved coin score
@@ -58,7 +64,7 @@ class Jump10 extends FlameGame
 //       [
 //         ParallaxImageData('bg/8.png'),
 //         ParallaxImageData('bg/11.png'),
-//         ParallaxImageData('bg/12.png'), 
+//         ParallaxImageData('bg/12.png'),
 //       ],
 //       size: Vector2(1900, 400),
 //       priority: -1,
@@ -96,7 +102,7 @@ class Jump10 extends FlameGame
       sprite: coinSprite,
       position: Vector2(livesImage.position.x + livesImage.size.x + 50, 30),
       size: Vector2(24, 24), // Set the size of the image
-      anchor: Anchor.topRight,priority: 1,
+      anchor: Anchor.topRight, priority: 1,
     );
 
 // Initialize coinsText
@@ -111,7 +117,8 @@ class Jump10 extends FlameGame
           fontSize: 20,
         ),
       ),
-    );coinsText.priority = 1;
+    );
+    coinsText.priority = 1;
 
     // Load the GIF background
     // background = SpriteComponent()
@@ -129,12 +136,9 @@ class Jump10 extends FlameGame
 
     await loadLevel();
 
-joystick = JoystickComponent(
+    joystick = JoystickComponent(
         knob: CircleComponent(
-             radius: 65,
-            paint: Paint()
-              ..color =
-                   Colors.grey.withOpacity(0.50)),
+            radius: 65, paint: Paint()..color = Colors.grey.withOpacity(0.50)),
         background: CircleComponent(
             radius: 100, paint: Paint()..color = Colors.grey.withOpacity(0.5)),
         margin: const EdgeInsets.only(left: 10, bottom: 20));
@@ -162,19 +166,62 @@ joystick = JoystickComponent(
     overlays.addEntry(
       'Win',
       (context, game) => Final(
-        onRestart: restartGame,
+        onRestart: () {
+          // Call onPageExit before navigating away
+          onPageExit();
+          // Navigate to Quiz2
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return const GameJump();
+            }),
+          );
+        },
       ),
     );
 
     return super.onLoad();
   }
 
+    @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_isCurrentPage) {
+      // Only manage audio if this is the current page
+      if (state == AppLifecycleState.paused ||
+          state == AppLifecycleState.inactive ||
+          state == AppLifecycleState.detached) {
+        FlameAudio.bgm.pause();
+      } else if (state == AppLifecycleState.resumed) {
+        FlameAudio.bgm.resume();
+      }
+    }
+  }
+
+  // New method to call when navigating away from this page
+  void onPageExit() {
+    _isCurrentPage = false;
+    FlameAudio.bgm.pause();
+  }
+
+  // New method to call when returning to this page
+  void onPageEnter() {
+    _isCurrentPage = true;
+    FlameAudio.bgm.resume();
+  }
+
+  @override
+  void onRemove() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onRemove();
+  }
+
+
   Future<void> loadLevel() async {
-     parallax = await loadParallaxComponent(
+    parallax = await loadParallaxComponent(
       [
         ParallaxImageData('bg/1.png'),
         ParallaxImageData('bg/2.png'),
-        ParallaxImageData('bg/3.png'), 
+        ParallaxImageData('bg/3.png'),
         ParallaxImageData('bg/4.png'),
         // ParallaxImageData('bg/5.png'),
         ParallaxImageData('bg/6.png'), // ระบุชื่อไฟล์รูปภาพพื้นหลัง
@@ -182,7 +229,7 @@ joystick = JoystickComponent(
       size: Vector2(2560, 650),
       priority: -1,
     );
-    world.add(parallax); 
+    world.add(parallax);
 
     final level = await TiledComponent.load(
       "map10.tmx",
@@ -260,7 +307,7 @@ joystick = JoystickComponent(
   //     myPlayer.moveJump();
   //   }
   // }
-  
+
   @override
   void update(double dt) {
     super.update(dt);
@@ -304,19 +351,19 @@ joystick = JoystickComponent(
         case JoystickDirection.downLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.upLeft:
+        case JoystickDirection.upLeft:
           myPlayer.moveLeft();
           break;
-          case JoystickDirection.left:
+        case JoystickDirection.left:
           myPlayer.moveLeft();
           break;
         case JoystickDirection.right:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.downRight:
+        case JoystickDirection.downRight:
           myPlayer.moveRight();
           break;
-          case JoystickDirection.upRight:
+        case JoystickDirection.upRight:
           myPlayer.moveRight();
           break;
         default:

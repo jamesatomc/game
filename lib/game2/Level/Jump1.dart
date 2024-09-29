@@ -52,8 +52,7 @@ class Jump1 extends FlameGame
 
   late JumpButton jumpButton;
   late ParallaxComponent parallax;
-  bool _isCurrentPage =
-      true; // New variable to track if this is the current page
+  bool _isCurrentPage = true; 
 
   @override
   Future<void> onLoad() async {

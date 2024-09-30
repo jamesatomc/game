@@ -114,6 +114,11 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     });
   }
 
+    Future<void> _playSound() async {
+    await _audioPlayer.play(AssetSource(
+        'sounds/button_click.mp3')); // Adjust the path to your sound file
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -138,6 +143,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                 left: 16.0,
                 child: ElevatedButton(
                   onPressed: () {
+                    _playSound(); // Play sound when button is pressed
                     _stopBackgroundMusic();
                     Navigator.pop(context); // Close the dialog
                   },

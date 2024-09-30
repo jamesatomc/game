@@ -144,7 +144,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                 child: ElevatedButton(
                   onPressed: () {
                     _playSound(); // Play sound when button is pressed
-                    _stopBackgroundMusic();
+                    // _stopBackgroundMusic();
                     Navigator.pop(context); // Close the dialog
                   },
                   style: ElevatedButton.styleFrom(

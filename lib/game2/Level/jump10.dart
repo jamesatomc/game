@@ -71,7 +71,7 @@ class Jump10 extends FlameGame
         // ParallaxImageData('bg/5.png'),
         ParallaxImageData('bg/6.png'), // ระบุชื่อไฟล์รูปภาพพื้นหลัง
       ],
-      size: Vector2(1900, 400),
+      size: screenSize,
       priority: -1,
     );
     add(parallax);
@@ -181,11 +181,11 @@ class Jump10 extends FlameGame
         return Final();
       },
     );
-    
+
     return super.onLoad();
   }
 
-    @override
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (_isCurrentPage) {
       // Only manage audio if this is the current page

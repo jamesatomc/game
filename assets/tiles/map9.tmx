@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="160" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="107">
  <tileset firstgid="1" name="summer_" tilewidth="16" tileheight="16" tilecount="280" columns="14">
-  <image source="images/summer_.png" width="224" height="320"/>
+  <image source="summer_.png" width="224" height="320"/>
  </tileset>
  <tileset firstgid="281" name="staticObjects_" tilewidth="16" tileheight="16" tilecount="162" columns="18">
   <image source="staticObjects_.png" width="288" height="144"/>

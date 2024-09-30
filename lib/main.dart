@@ -110,7 +110,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       style: const TextStyle(
                         fontSize: 40.0,
                         fontFamily: 'Itim-Regular',
-                        color: Color.fromARGB(255, 0, 0, 0),
+                        color: Color.fromARGB(255, 255, 255, 255),
                         fontWeight: FontWeight.bold,
                       ),
                       child: AnimatedTextKit(

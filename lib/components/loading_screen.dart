@@ -89,7 +89,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 width: MediaQuery.of(context).size.width * 0.7,
                 height: 30,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 2),
+                  border: Border.all(color: Colors.black, width: 2),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Stack(

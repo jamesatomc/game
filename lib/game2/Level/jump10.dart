@@ -10,14 +10,15 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
-import '../GameJump.dart';
 import '../components/game-ui/bumpy.dart';
 import '../components/game-ui/cion.dart';
 import '../components/game-ui/game_over_overlay.dart';
 import '../components/game-ui/ground.dart';
 import '../components/game-ui/jumpButton.dart';
+import '../components/game-ui/medusa.dart';
 import '../components/game-ui/monsters.dart';
 import '../components/game-ui/player.dart';
+import '../components/game-ui/suriken.dart';
 
 class Jump10 extends FlameGame
     with
@@ -60,16 +61,20 @@ class Jump10 extends FlameGame
 
     // Load the saved coin score
     level10CoinScore = await getLevel10CoinScore() ?? 0;
-// parallax = await loadParallaxComponent(
-//       [
-//         ParallaxImageData('bg/8.png'),
-//         ParallaxImageData('bg/11.png'),
-//         ParallaxImageData('bg/12.png'),
-//       ],
-//       size: Vector2(1900, 400),
-//       priority: -1,
-//     );
-//     add(parallax);
+    final screenSize = camera.viewport.size;
+    parallax = await loadParallaxComponent(
+      [
+        ParallaxImageData('bg/1.png'),
+        ParallaxImageData('bg/2.png'),
+        ParallaxImageData('bg/3.png'), 
+        ParallaxImageData('bg/4.png'),
+        // ParallaxImageData('bg/5.png'),
+        ParallaxImageData('bg/6.png'), // ระบุชื่อไฟล์รูปภาพพื้นหลัง
+      ],
+      size: Vector2(1900, 400),
+      priority: -1,
+    );
+    add(parallax);
 // Load the lives image
     final livesSprite = await loadSprite('lives.png');
 
@@ -169,13 +174,6 @@ class Jump10 extends FlameGame
         onRestart: () {
           // Call onPageExit before navigating away
           onPageExit();
-          // Navigate to Quiz2
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return const GameJump();
-            }),
-          );
         },
       ),
     );
@@ -215,21 +213,7 @@ class Jump10 extends FlameGame
     super.onRemove();
   }
 
-
   Future<void> loadLevel() async {
-    parallax = await loadParallaxComponent(
-      [
-        ParallaxImageData('bg/1.png'),
-        ParallaxImageData('bg/2.png'),
-        ParallaxImageData('bg/3.png'),
-        ParallaxImageData('bg/4.png'),
-        // ParallaxImageData('bg/5.png'),
-        ParallaxImageData('bg/6.png'), // ระบุชื่อไฟล์รูปภาพพื้นหลัง
-      ],
-      size: Vector2(2560, 650),
-      priority: -1,
-    );
-    world.add(parallax);
 
     final level = await TiledComponent.load(
       "map10.tmx",
@@ -277,6 +261,16 @@ class Jump10 extends FlameGame
           final bumpy = Bumpy(position: monstersPoint.position);
           world.add(bumpy);
           break;
+
+        case "medusa":
+          final medusa = Medusa(position: monstersPoint.position);
+          world.add(medusa);
+          break;
+
+        case "suriken":
+          final suriken = Suriken(position: monstersPoint.position);
+          world.add(suriken);
+          break;
       }
     }
 
@@ -288,7 +282,7 @@ class Jump10 extends FlameGame
     }
 
     camera.viewport = FixedResolutionViewport(
-      resolution: Vector2(1500, 650),
+      resolution: Vector2(1200, 650),
     );
 
     camera.setBounds(

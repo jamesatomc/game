@@ -280,7 +280,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         const SizedBox(width: 10),
                         PixelLevelButton2(
                           level: 10,
-                          isUnlocked:
+                          isUnlocked: 
                               level9CoinScore != null && level9CoinScore! >= 18,
                           nextScreen:
                               Quiz10(onResumeMusic: _playBackgroundMusic),

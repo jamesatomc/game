@@ -63,6 +63,21 @@ class Jump6 extends FlameGame
     // Load the saved coin score
     level6CoinScore = await getLevel6CoinScore() ?? 0;
 
+    final screenSize = camera.viewport.size;
+     parallax = await loadParallaxComponent(
+      [
+        ParallaxImageData('bg/1.png'),
+        ParallaxImageData('bg/2.png'),
+        ParallaxImageData('bg/3.png'), 
+        ParallaxImageData('bg/4.png'),
+        // ParallaxImageData('bg/5.png'),
+        ParallaxImageData('bg/6.png'), // ระบุชื่อไฟล์รูปภาพพื้นหลัง
+      ],
+      size: screenSize,
+      priority: 1,
+    );
+    add(parallax); 
+
 // Load the lives image
     final livesSprite = await loadSprite('lives.png');
 
@@ -210,19 +225,7 @@ class Jump6 extends FlameGame
   }
 
   Future<void> loadLevel() async {
-    parallax = await loadParallaxComponent(
-      [
-        ParallaxImageData('bg/1.png'),
-        ParallaxImageData('bg/2.png'),
-        ParallaxImageData('bg/3.png'),
-        ParallaxImageData('bg/4.png'),
-        // ParallaxImageData('bg/5.png'),
-        ParallaxImageData('bg/6.png'), // ระบุชื่อไฟล์รูปภาพพื้นหลัง
-      ],
-      size: Vector2(2560, 650),
-      priority: -1,
-    );
-    world.add(parallax);
+
     final level = await TiledComponent.load(
       "map6.tmx",
       Vector2.all(16),
@@ -290,7 +293,7 @@ class Jump6 extends FlameGame
     }
 
     camera.viewport = FixedResolutionViewport(
-      resolution: Vector2(1500, 650),
+      resolution: Vector2(1200, 650),
     );
 
     camera.setBounds(

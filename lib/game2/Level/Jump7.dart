@@ -63,6 +63,21 @@ class Jump7 extends FlameGame
     // Load the saved coin score
     level7CoinScore = await getLevel7CoinScore() ?? 0;
 
+    final screenSize = camera.viewport.size;
+     parallax = await loadParallaxComponent(
+      [
+        ParallaxImageData('bg/1.png'),
+        ParallaxImageData('bg/2.png'),
+        ParallaxImageData('bg/3.png'), 
+        ParallaxImageData('bg/4.png'),
+        // ParallaxImageData('bg/5.png'),
+        ParallaxImageData('bg/6.png'), // ระบุชื่อไฟล์รูปภาพพื้นหลัง
+      ],
+      size: screenSize,
+      priority: 1,
+    );
+    add(parallax); 
+
 // Load the lives image
     final livesSprite = await loadSprite('lives.png');
 
@@ -291,7 +306,7 @@ class Jump7 extends FlameGame
     }
 
     camera.viewport = FixedResolutionViewport(
-      resolution: Vector2(1500, 650),
+      resolution: Vector2(1600, 650),
     );
 
     camera.setBounds(

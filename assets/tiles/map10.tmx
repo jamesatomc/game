@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="160" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="71">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="160" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="72">
  <tileset firstgid="1" name="summer_" tilewidth="16" tileheight="16" tilecount="280" columns="14">
   <image source="summer_.png" width="224" height="320"/>
  </tileset>
@@ -59,8 +59,8 @@
   <object id="41" type="monsters" x="1928.16" y="811.999" width="84" height="26"/>
   <object id="42" type="monsters" x="2015.5" y="812.333" width="92" height="18"/>
   <object id="43" type="monsters" x="2110.5" y="817.333" width="92" height="18"/>
-  <object id="47" type="suriken" x="419.333" y="620" width="28" height="29.3333"/>
   <object id="70" type="suriken" x="1440.67" y="605.333" width="28" height="29.3333"/>
+  <object id="71" type="suriken" x="397.333" y="616" width="34.6667" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="coin">
   <object id="50" type="coin" x="345.333" y="106.667" width="33.3333" height="28"/>

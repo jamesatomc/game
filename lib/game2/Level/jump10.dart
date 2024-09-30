@@ -167,17 +167,21 @@ class Jump10 extends FlameGame
       ),
     );
 
+    // Define the function to be called on overlay registration
+    void handleWinOverlay() {
+      onPageExit();
+      FlameAudio.bgm.stop();
+    }
+    
     // Register the win overlay
     overlays.addEntry(
       'Win',
-      (context, game) => Final(
-        onRestart: () {
-          // Call onPageExit before navigating away
-          onPageExit();
-        },
-      ),
+      (context, game) {
+        handleWinOverlay();
+        return Final();
+      },
     );
-
+    
     return super.onLoad();
   }
 

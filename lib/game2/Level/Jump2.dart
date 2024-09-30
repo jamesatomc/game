@@ -63,13 +63,15 @@ class Jump2 extends FlameGame
 
     // Load the saved coin score
     level2CoinScore = await getLevel2CoinScore() ?? 0;
+    
+    final screenSize = camera.viewport.size;
     parallax = await loadParallaxComponent(
       [
         ParallaxImageData('bg/8.png'),
         ParallaxImageData('bg/11.png'),
         ParallaxImageData('bg/12.png'),
       ],
-      size: Vector2(1900, 400),
+      size: screenSize,
       priority: -1,
     );
     add(parallax);

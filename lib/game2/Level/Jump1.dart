@@ -61,13 +61,14 @@ class Jump1 extends FlameGame
 
     // Load the saved coin score
     level1CoinScore = await getLevel1CoinScore() ?? 0;
+    final screenSize = camera.viewport.size;
     parallax = await loadParallaxComponent(
       [
         ParallaxImageData('bg/8.png'),
         ParallaxImageData('bg/11.png'),
         ParallaxImageData('bg/12.png'),
       ],
-      size: Vector2(1900, 400),
+      size: screenSize,
       priority: -1,
     );
     add(parallax);
@@ -219,16 +220,6 @@ class Jump1 extends FlameGame
   }
 
   Future<void> loadLevel() async {
-    // parallax = await loadParallaxComponent(
-    //   [
-    //     ParallaxImageData('bg/8.png'),
-    //     ParallaxImageData('bg/11.png'),
-    //     ParallaxImageData('bg/12.png'),
-    //   ],
-    //   size: Vector2(1900, 650),
-    //   // priority: -1,
-    // );
-    // world.add(parallax);
 
     final level = await TiledComponent.load(
       "map.tmx",

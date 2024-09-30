@@ -63,14 +63,14 @@ class Jump5 extends FlameGame
 
     // Load the saved coin score
     level5CoinScore = await getLevel5CoinScore() ?? 0;
-
+    final screenSize = camera.viewport.size;
     parallax = await loadParallaxComponent(
       [
         ParallaxImageData('bg/10.png'),
         ParallaxImageData('bg/11.png'),
         ParallaxImageData('bg/12.png'),
       ],
-      size: Vector2(2560, 400),
+      size: screenSize,
       priority: -1,
     );
     add(parallax);

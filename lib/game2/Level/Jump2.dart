@@ -287,7 +287,7 @@ class Jump2 extends FlameGame
     }
 
     camera.viewport = FixedResolutionViewport(
-      resolution: Vector2(1200, 650),
+      resolution: Vector2(1500, 650),
     );
 
     camera.setBounds(

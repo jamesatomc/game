@@ -9,12 +9,13 @@ class Final extends StatefulWidget {
   _FinalState createState() => _FinalState();
 }
 
-class _FinalState extends State<Final> {
+class _FinalState extends State<Final> with WidgetsBindingObserver {
   final AudioPlayer _audioPlayer =
       AudioPlayer(); // สร้าง instance ของ AudioPlayer
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     _playBackgroundSound(); // เรียกเล่นเสียงเมื่อหน้าแสดงผล
   }
@@ -27,8 +28,46 @@ class _FinalState extends State<Final> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _audioPlayer.dispose(); // หยุดเสียงเมื่อ widget ถูกทำลาย
     super.dispose();
+  }
+
+  bool _isMusicPlaying = false; // Flag to track music playback
+  Future<void> _playBackgroundMusic() async {
+    if (!_isMusicPlaying) {
+      // Only play if not already playing
+      try {
+        await _audioPlayer.play(AssetSource('audio/lofi.mp3'), volume: 0.5);
+        _isMusicPlaying = true;
+        print('Background music started');
+      } catch (e) {
+        print('Error playing background music: $e');
+      }
+    }
+  }
+
+  void _pauseBackgroundMusic() {
+    if (_isMusicPlaying) {
+      _audioPlayer.pause();
+      _isMusicPlaying = false;
+      print('Background music paused');
+    }
+  }
+
+  void _resumeBackgroundMusic() {
+    if (!_isMusicPlaying) {
+      _audioPlayer.resume();
+      _isMusicPlaying = true;
+      print('Background music resumed');
+    }
+  }
+
+  void _stopBackgroundMusic() {
+    if (_isMusicPlaying) {
+      _audioPlayer.stop();
+      _isMusicPlaying = false;
+    }
   }
 
   @override
@@ -90,6 +129,7 @@ class _FinalState extends State<Final> {
                   ),
                   ElevatedButton(
                         onPressed: () {
+                          _stopBackgroundMusic();
                           FlameAudio.bgm.stop();
                           Navigator.of(context).pop();
                           Navigator.pushReplacement(

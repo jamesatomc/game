@@ -25,8 +25,7 @@ class GameCardScreen extends StatefulWidget {
   State<GameCardScreen> createState() => _GameCardScreenState();
 }
 
-class _GameCardScreenState extends State<GameCardScreen>
-    with WidgetsBindingObserver {
+class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObserver {
   int? level1HighScore;
   int? level2HighScore;
   int? level3HighScore;

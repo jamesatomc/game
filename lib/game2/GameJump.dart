@@ -125,8 +125,8 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       // level1
-      answeredQuestions1 = prefs.getInt('answeredQuestions') ?? 0;
-      incorrectAnswers1 = prefs.getInt('incorrectAnswers') ?? 0;
+      answeredQuestions1 = prefs.getInt('answeredQuestions');
+      incorrectAnswers1 = prefs.getInt('incorrectAnswers');
     });
   }
 
@@ -328,7 +328,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       children: [
                         // Level1                   
                         Text(
-                          'ถูก: $answeredQuestions1',
+                          'ถูก: $answeredQuestions2',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -336,7 +336,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(height: 0.5),
                         Text(
-                          'ผิด: $incorrectAnswers1',
+                          'ผิด: $incorrectAnswers2',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,

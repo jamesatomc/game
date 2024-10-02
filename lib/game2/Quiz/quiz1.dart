@@ -99,15 +99,15 @@ class _Quiz1State extends State<Quiz1> {
   Future<void> _loadAnswerCounts() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      incorrectAnswers1 = prefs.getInt('incorrectAnswers') ?? 0;
-      answeredQuestions1 = prefs.getInt('answeredQuestions') ?? 0;
+      incorrectAnswers1 = prefs.getInt('incorrectAnswers1') ?? 0;
+      answeredQuestions1 = prefs.getInt('answeredQuestions1') ?? 0;
     });
   }
 
   Future<void> _saveAnswerCounts() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('incorrectAnswers', incorrectAnswers1);
-    await prefs.setInt('answeredQuestions', answeredQuestions1);
+    await prefs.setInt('incorrectAnswers1', incorrectAnswers1);
+    await prefs.setInt('answeredQuestions1', answeredQuestions1);
   }
 
   void _loadRandomQuestion() {

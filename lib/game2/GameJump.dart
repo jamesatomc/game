@@ -125,9 +125,21 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       // level1
-      answeredQuestions1 = prefs.getInt('answeredQuestions');
-      incorrectAnswers1 = prefs.getInt('incorrectAnswers');
+      answeredQuestions1 = prefs.getInt('answeredQuestions1');
+      incorrectAnswers1 = prefs.getInt('incorrectAnswers1');
     });
+  }
+
+
+    // Function to reset high score for all levels
+  Future<void> resetHighScores() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('answeredQuestions1');
+    prefs.remove('incorrectAnswers1');
+
+
+
+    _loadAnswerCounts(); // Reload high scores after reset
   }
 
   Future<void> _playSound() async {
@@ -328,7 +340,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       children: [
                         // Level1                   
                         Text(
-                          'ถูก: $answeredQuestions2',
+                          'ถูก: ${answeredQuestions1 ?? 'N/A'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -336,23 +348,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(height: 0.5),
                         Text(
-                          'ผิด: $incorrectAnswers2',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                        // Level2
-                        Text(
-                          'ถูก: $answeredQuestions1',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 0.5),
-                        Text(
-                          'ผิด: $incorrectAnswers1',
+                          'ผิด: ${incorrectAnswers1 ?? 'N/A'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -395,7 +391,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         icon: Icon(Icons.refresh), // Use the desired icon
                         onPressed: () {
                           _playSound(); // Play sound when button is pressed
-                          // resetHighScores();
+                          resetHighScores();
                         },
                         color: const Color.fromARGB(
                             255, 209, 208, 208), // Set the icon color

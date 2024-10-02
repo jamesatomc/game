@@ -34,6 +34,12 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
   int? level9CoinScore;
   int? level10CoinScore;
 
+  int? answeredQuestions1;
+  int? incorrectAnswers1;
+
+  int? answeredQuestions2;
+  int? incorrectAnswers2;
+
   late AudioPlayer _audioPlayer;
   bool _isMusicPlaying = false; // Flag to track music playback
 
@@ -44,6 +50,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     _audioPlayer = AudioPlayer();
     _playBackgroundMusic();
     _loadCoinScores();
+    _loadAnswerCounts();
   }
 
   @override
@@ -114,7 +121,16 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     });
   }
 
-    Future<void> _playSound() async {
+  Future<void> _loadAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      // level1
+      answeredQuestions1 = prefs.getInt('answeredQuestions') ?? 0;
+      incorrectAnswers1 = prefs.getInt('incorrectAnswers') ?? 0;
+    });
+  }
+
+  Future<void> _playSound() async {
     await _audioPlayer.play(AssetSource(
         'sounds/button_click.mp3')); // Adjust the path to your sound file
   }
@@ -305,6 +321,43 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                           onTap: _stopBackgroundMusic,
                         ),
                         const SizedBox(width: 10),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Column(
+                      children: [
+                        // Level1                   
+                        Text(
+                          'ถูก: $answeredQuestions1',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 0.5),
+                        Text(
+                          'ผิด: $incorrectAnswers1',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        // Level2
+                        Text(
+                          'ถูก: $answeredQuestions1',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 0.5),
+                        Text(
+                          'ผิด: $incorrectAnswers1',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ],

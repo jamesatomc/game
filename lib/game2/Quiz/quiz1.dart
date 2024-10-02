@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 
 import '../../components/game_button.dart';
@@ -80,16 +81,33 @@ class _Quiz1State extends State<Quiz1> {
   bool showAnswer = false;
   int incorrectAnswers = 0;
   int answeredQuestions = 0;
+  int incorrectAnswers1 = 0;
+  int answeredQuestions1 = 0;
   final int maxIncorrectAnswers = 2;
   final int totalQuestions = 2;
   final Random random = Random();
   final AudioPlayer audioPlayer = AudioPlayer();
 
-   @override
+  @override
   void initState() {
     super.initState();
     remainingQuestions = List.from(questions);
     _loadRandomQuestion();
+    _loadAnswerCounts();
+  }
+
+  Future<void> _loadAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      incorrectAnswers1 = prefs.getInt('incorrectAnswers') ?? 0;
+      answeredQuestions1 = prefs.getInt('answeredQuestions') ?? 0;
+    });
+  }
+
+  Future<void> _saveAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('incorrectAnswers', incorrectAnswers1);
+    await prefs.setInt('answeredQuestions', answeredQuestions1);
   }
 
   void _loadRandomQuestion() {
@@ -113,10 +131,13 @@ class _Quiz1State extends State<Quiz1> {
       if (selectedIndex == currentQuestion.correctAnswerIndex) {
         _playCorrectAnswerSound();
         answeredQuestions++;
+        answeredQuestions1++;
       } else {
         _playIncorrectAnswerSound();
         incorrectAnswers++;
+        incorrectAnswers1++;
       }
+      _saveAnswerCounts();
     });
 
 

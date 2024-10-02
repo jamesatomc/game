@@ -40,8 +40,8 @@ class Jump8 extends FlameGame
   late SpriteComponent background;
   late Vector2 playerSpawnPoint; // Declare playerSpawnPoint here
 
-  int lives = 2; // Start with 2 lives
-  int initialLives = 2; // Store the initial number of lives
+  int lives = 3; // Start with 2 lives
+  int initialLives = 3; // Store the initial number of lives
   int level8CoinScore = 0; // Track the number of coins collected
   int level8CoinScoreReset = 0; // New variable for resetting purposes
 

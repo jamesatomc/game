@@ -269,39 +269,6 @@ void _showFailScreen() {
   );
 }
 
-// void showExitDialog(BuildContext context, Function? onResumeMusic) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text('Exit the game'),
-//           content: Text('Do you want to quit the game?'),
-//           actions: [
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.of(context).pop(); // ปิด AlertDialog
-//                 // ออกจากเกมส์โดยไม่ทำอะไร
-//               },
-//               child: Text('No'),
-//             ),
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//                 Navigator.pushReplacement(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => GameJump()),
-//                     );
-//                     Navigator.of(context).pop();
-//                 onResumeMusic?.call(); // Call the function to resume music
-//               },
-//               child: Text('Yes'),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

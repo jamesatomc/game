@@ -363,6 +363,50 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                   ],
                 ),
               ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                      14.0), // Adjust the padding as needed
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // View High Scores Button
+                      FutureBuilder(
+                        future: _loadAnswerCounts(),
+                        builder: (context, snapshot) {
+                          return IconButton(
+                            icon: Icon(Icons.emoji_events,
+                                color:
+                                    const Color.fromARGB(255, 209, 208, 208)),
+                            iconSize: 35, // Adjust icon size
+                            onPressed: () {
+                              // _playSound(); // Play sound when button is pressed
+                              // showHighScoresDialog(context);
+                            },
+                            color: Colors.white, // Background color
+                            padding:
+                                EdgeInsets.all(5), // Padding around the icon
+                            splashRadius: 30, // Splash radius for the button
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.refresh), // Use the desired icon
+                        onPressed: () {
+                          _playSound(); // Play sound when button is pressed
+                          // resetHighScores();
+                        },
+                        color: const Color.fromARGB(
+                            255, 209, 208, 208), // Set the icon color
+                        iconSize: 35.0, // Set the icon size (adjust as needed)
+                      ),
+                      // MusicToggleButton(),
+                    ],
+                  ),
+                ),
+              ),            
+            
             ],
           ),
         ),

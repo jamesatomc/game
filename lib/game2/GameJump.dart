@@ -229,7 +229,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
           backgroundColor:
               Colors.black.withOpacity(0.8), // Black transparent background
           title: const Text(
-            'คะแนนสะสม Quiz',
+            'สรุปคะแนน Quiz',
             style: TextStyle(
               fontFamily: 'PixelFont', // Use a pixel art font
               color: Colors.white, // White text color for visibility
@@ -253,7 +253,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions1 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions1 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -261,7 +261,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers1 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers1 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -284,7 +284,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions2 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions2 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -292,7 +292,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers2 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers2 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -315,7 +315,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions3 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions3 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -323,7 +323,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers3 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers3 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -346,7 +346,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions4 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions4 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -354,7 +354,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers4 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers4 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -377,7 +377,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions5 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions5 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -385,7 +385,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers5 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers5 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -408,7 +408,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions6 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions6 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -416,7 +416,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers6 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers6 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -439,7 +439,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions7 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions7 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -447,7 +447,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers7 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers7 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -470,7 +470,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions8 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions8 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -478,7 +478,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers8 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers8 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -501,7 +501,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions9 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions9 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -509,7 +509,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers9 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers9 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,
@@ -532,7 +532,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ถูก: ${answeredQuestions10 ?? 'N/A'}',
+                          'ถูก: ${answeredQuestions10 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.green,
@@ -540,7 +540,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'ผิด: ${incorrectAnswers10 ?? 'N/A'}',
+                          'ผิด: ${incorrectAnswers10 ?? '-'}',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.red,

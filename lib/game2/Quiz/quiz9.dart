@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:game_somo/game2/Level/jump9.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 
 import '../../components/game_button.dart';
@@ -104,6 +105,8 @@ class _Quiz9State extends State<Quiz9> {
   bool showAnswer = false;
   int incorrectAnswers = 0;
   int answeredQuestions = 0;
+  int incorrectAnswers9 = 0;
+  int answeredQuestions9 = 0;
   final int maxIncorrectAnswers = 2;
   final int totalQuestions = 2;
   final Random random = Random();
@@ -114,7 +117,22 @@ class _Quiz9State extends State<Quiz9> {
     super.initState();
     remainingQuestions = List.from(questions);
     _loadRandomQuestion();
+    _loadAnswerCounts();
   }
+
+  Future<void> _loadAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      incorrectAnswers9 = prefs.getInt('incorrectAnswers9') ?? 0;
+      answeredQuestions9 = prefs.getInt('answeredQuestions9') ?? 0;
+    });
+  }
+
+  Future<void> _saveAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('incorrectAnswers9', incorrectAnswers9);
+    await prefs.setInt('answeredQuestions9', answeredQuestions9);
+  }  
 
   void _loadRandomQuestion() {
     setState(() {
@@ -137,10 +155,13 @@ class _Quiz9State extends State<Quiz9> {
       if (selectedIndex == currentQuestion.correctAnswerIndex) {
         _playCorrectAnswerSound();
         answeredQuestions++;
+        answeredQuestions9++;
       } else {
         _playIncorrectAnswerSound();
         incorrectAnswers++;
+        incorrectAnswers9++;
       }
+      _saveAnswerCounts();
     });
 
     // Delay to show the answer before loading the next question

@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:game_somo/game2/Level/Jump7.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 
 import '../../components/game_button.dart';
@@ -21,52 +22,82 @@ class Quiz7 extends StatefulWidget {
 class _Quiz7State extends State<Quiz7> {
   List<Question> questions = [
     // Add your questions here, following the same format as below:
-     Question(
+    Question(
       "คำถาม\n Mother : Tommy, will you hang up your clothes?\nTommy : ______________________.",
-      ["Thanks, mother.", "Very good. ", "Sure. I'll hang up later.", "No, I wasn't."],
+      [
+        "Thanks, mother.",
+        "Very good. ",
+        "Sure. I'll hang up later.",
+        "No, I wasn't."
+      ],
       2,
     ),
     Question(
       "คำถาม\nA : __________.\nB : I was at the subway station.",
-      ["What were you doing at 3:00?", " What was the weather like at 3:00?", "Why were you there at 3:00?", "Where were you at 3:00?"],
+      [
+        "What were you doing at 3:00?",
+        " What was the weather like at 3:00?",
+        "Why were you there at 3:00?",
+        "Where were you at 3:00?"
+      ],
       3,
     ),
-     Question(
+    Question(
       "คำถาม\nA : What are you going to do the day after tomorrow?\nB : __________.",
-      ["I am going to shop for clothes.", " I was at the candy store.", "I went to Europe.", "I was going to wait for the bus."],
+      [
+        "I am going to shop for clothes.",
+        " I was at the candy store.",
+        "I went to Europe.",
+        "I was going to wait for the bus."
+      ],
       0,
     ),
-     Question(
+    Question(
       "คำถาม\n Sunee : _____ you _____ any pencils?\nManee : Yes, I ______.",
       ["Does, did, did", "Did, do, does", "Do, have, do", "Does, have does"],
       2,
     ),
-     Question(
+    Question(
       "คำถาม\n Grandfather : ________________?\nMichael : Sorry. I'm busy now.",
-      ["Michael, where are you?", "Michael, will you pick up your toys? ", "Michael, what do you want to be?", "Michael, are you at the toy store?"],
+      [
+        "Michael, where are you?",
+        "Michael, will you pick up your toys? ",
+        "Michael, what do you want to be?",
+        "Michael, are you at the toy store?"
+      ],
       1,
     ),
-     Question(
+    Question(
       "คำถาม\n _______ his birthday?",
       ["What", "What’s", "When", "When’s"],
       1,
     ),
-     Question(
+    Question(
       "คำถาม\n Teacher : ________________?\nStudents : It's November 16th.",
-      ["What were you at 19:00?", " Will you put away your books?", "What's the date today?", "Does you have any boats?"],
+      [
+        "What were you at 19:00?",
+        " Will you put away your books?",
+        "What's the date today?",
+        "Does you have any boats?"
+      ],
       2,
     ),
-     Question(
+    Question(
       "คำถาม\n Nat : Did you go to the candy store last Sunday?\nTol : No, I ________. I _______ to the park.",
       ["didn't, went", " don't, go", "doesn't, go", "didn't, go"],
       1,
     ),
-     Question(
+    Question(
       "คำถาม\n Namo : ____________?\nYuri : I'm going to play basketball.",
-      ["Where were you yesterday?", "What are you going to do today? ", "Are you going to play basketball?", "Were you at the park?"],
+      [
+        "Where were you yesterday?",
+        "What are you going to do today? ",
+        "Are you going to play basketball?",
+        "Were you at the park?"
+      ],
       1,
     ),
-     Question(
+    Question(
       "คำถาม\n _______ his birthday?",
       ["What", " What's", "When", "When's"],
       0,
@@ -80,16 +111,33 @@ class _Quiz7State extends State<Quiz7> {
   bool showAnswer = false;
   int incorrectAnswers = 0;
   int answeredQuestions = 0;
+  int incorrectAnswers7 = 0;
+  int answeredQuestions7 = 0;
   final int maxIncorrectAnswers = 2;
   final int totalQuestions = 2;
   final Random random = Random();
   final AudioPlayer audioPlayer = AudioPlayer();
 
-   @override
+  @override
   void initState() {
     super.initState();
     remainingQuestions = List.from(questions);
     _loadRandomQuestion();
+    _loadAnswerCounts();
+  }
+
+  Future<void> _loadAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      incorrectAnswers7 = prefs.getInt('incorrectAnswers7') ?? 0;
+      answeredQuestions7 = prefs.getInt('answeredQuestions7') ?? 0;
+    });
+  }
+
+  Future<void> _saveAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('incorrectAnswers7', incorrectAnswers7);
+    await prefs.setInt('answeredQuestions7', answeredQuestions7);
   }
 
   void _loadRandomQuestion() {
@@ -113,13 +161,14 @@ class _Quiz7State extends State<Quiz7> {
       if (selectedIndex == currentQuestion.correctAnswerIndex) {
         _playCorrectAnswerSound();
         answeredQuestions++;
+        answeredQuestions7++;        
       } else {
         _playIncorrectAnswerSound();
         incorrectAnswers++;
+        incorrectAnswers7++;
       }
+      _saveAnswerCounts();
     });
-
-
 
     // Delay to show the answer before loading the next question
     Future.delayed(const Duration(seconds: 2), () {
@@ -151,7 +200,7 @@ class _Quiz7State extends State<Quiz7> {
     });
   }
 
-   void _showCompletionScreen() {
+  void _showCompletionScreen() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -174,80 +223,82 @@ class _Quiz7State extends State<Quiz7> {
     );
   }
 
-void _showFailScreen() {
-  showDialog(
-    context: context,
-    barrierDismissible: false, // Prevent closing by tapping outside
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.black.withOpacity(0.7), // Semi-transparent black background
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        title: Column(
-          children: [
-            Icon(
-              Icons.error_outline,
-              color: Colors.red,
-              size: 50,
-            ),
-            SizedBox(height: 10),
-            Text(
-              'เสียใจด้วย',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            ),
-          ],
-        ),
-        content: Text(
-          'คุณต้องการลองอีกครั้งหรือไม่?',
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.white, // Ensure text is readable on dark background
+  void _showFailScreen() {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevent closing by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.black
+              .withOpacity(0.7), // Semi-transparent black background
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
           ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // ปิด AlertDialog
-                Navigator.pop(context); // กลับไปหน้าหลัก
-                widget.onResumeMusic?.call(); // Call the function to resume music
-              },
-              child: Text(
-                'ออกจากเกม',
+          title: Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 50,
+              ),
+              SizedBox(height: 10),
+              Text(
+                'เสียใจด้วย',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),
               ),
+            ],
+          ),
+          content: Text(
+            'คุณต้องการลองอีกครั้งหรือไม่?',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white, // Ensure text is readable on dark background
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _resetQuiz();
-              },
-              child: Text(
-                'ลองอีกครั้ง',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.green,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // ปิด AlertDialog
+                  Navigator.pop(context); // กลับไปหน้าหลัก
+                  widget.onResumeMusic
+                      ?.call(); // Call the function to resume music
+                },
+                child: Text(
+                  'ออกจากเกม',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      );
-    },
-  );
-}
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _resetQuiz();
+                },
+                child: Text(
+                  'ลองอีกครั้ง',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.green,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 // void showExitDialog(BuildContext context, Function? onResumeMusic) {
 //     showDialog(
@@ -307,14 +358,13 @@ void _showFailScreen() {
                       children: [
                         const SizedBox(height: 30),
                         Expanded(
-                                child: Text(
-                                  'Quiz',
-                                  style: TextStyle(
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 3, 232, 221))
-                                  ),
-                                ),
-                              
+                          child: Text('Quiz',
+                              style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 3, 232, 221))),
+                        ),
                         Row(
                           children: [
                             const SizedBox(width: 30),

@@ -120,7 +120,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
         return AlertDialog(
           backgroundColor: Colors.black.withOpacity(0.8), // Black transparent background
           title: const Text(
-            'High Scores',
+            'สรุปคะแนน',
             style: TextStyle(
               fontFamily: 'PixelFont', // Use a pixel art font
               color: Colors.white, // White text color for visibility
@@ -132,7 +132,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Level 1: ${level1HighScore ?? 'N/A'}',
+                  'Level 1: ${level1HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -140,7 +140,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 2: ${level2HighScore ?? 'N/A'}',
+                  'Level 2: ${level2HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -148,7 +148,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 3: ${level3HighScore ?? 'N/A'}',
+                  'Level 3: ${level3HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -156,7 +156,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 4: ${level4HighScore ?? 'N/A'}',
+                  'Level 4: ${level4HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -164,7 +164,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 5: ${level5HighScore ?? 'N/A'}',
+                  'Level 5: ${level5HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -172,7 +172,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 6: ${level6HighScore ?? 'N/A'}',
+                  'Level 6: ${level6HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -180,7 +180,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 7: ${level7HighScore ?? 'N/A'}',
+                  'Level 7: ${level7HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -188,7 +188,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 8: ${level8HighScore ?? 'N/A'}',
+                  'Level 8: ${level8HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -196,7 +196,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 9: ${level9HighScore ?? 'N/A'}',
+                  'Level 9: ${level9HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,
@@ -204,7 +204,7 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
                   ),
                 ),
                 Text(
-                  'Level 10: ${level10HighScore ?? 'N/A'}',
+                  'Level 10: ${level10HighScore ?? '0'}',
                   style: const TextStyle(
                     fontFamily: 'PixelFont', // Use a pixel art font
                     fontSize: 16,

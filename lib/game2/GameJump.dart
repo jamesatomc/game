@@ -218,6 +218,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     prefs.remove('incorrectAnswers10');
 
     _loadAnswerCounts(); // Reload high scores after reset
+    _loadCoinScores();
   }
 
   void showHighScoresDialog(BuildContext context) {

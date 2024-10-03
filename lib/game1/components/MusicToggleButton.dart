@@ -41,7 +41,7 @@ class _MusicToggleButtonState extends State<MusicToggleButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(isPlaying ? Icons.volume_up : Icons.volume_off),
+      icon: Icon(isPlaying ? Icons.music_note : Icons.music_off),
       onPressed: () {
         _playSound(); // Play sound when button is pressed
         _toggleMusic();

@@ -100,34 +100,43 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
       // Only play if not already playing
       try {
         await _audioPlayer.play(AssetSource('audio/lofi.mp3'), volume: 0.5);
-        _isMusicPlaying = true;
+        setState(() {
+          _isMusicPlaying = true;
+        });
         print('Background music started');
       } catch (e) {
         print('Error playing background music: $e');
       }
     }
   }
-
+  
   void _pauseBackgroundMusic() {
     if (_isMusicPlaying) {
       _audioPlayer.pause();
-      _isMusicPlaying = false;
+      setState(() {
+        _isMusicPlaying = false;
+      });
       print('Background music paused');
     }
   }
-
+  
   void _resumeBackgroundMusic() {
     if (!_isMusicPlaying) {
       _audioPlayer.resume();
-      _isMusicPlaying = true;
+      setState(() {
+        _isMusicPlaying = true;
+      });
       print('Background music resumed');
     }
   }
-
+  
   void _stopBackgroundMusic() {
     if (_isMusicPlaying) {
       _audioPlayer.stop();
-      _isMusicPlaying = false;
+      setState(() {
+        _isMusicPlaying = false;
+      });
+      print('Background music stopped');
     }
   }
 
@@ -802,7 +811,21 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                             255, 209, 208, 208), // Set the icon color
                         iconSize: 35.0, // Set the icon size (adjust as needed)
                       ),
-                      // MusicToggleButton(),
+                      // MusicToggleButton
+                      IconButton(
+                        icon: Icon(_isMusicPlaying ? Icons.music_note : Icons.music_off),
+                        color: const Color.fromARGB(255, 209, 208, 208),
+                        iconSize: 35.0,
+                        onPressed: () {
+                          setState(() {
+                            if (_isMusicPlaying) {
+                              _stopBackgroundMusic();
+                            } else {
+                              _playBackgroundMusic();
+                            }
+                          });
+                        },
+                      )
                     ],
                   ),
                 ),

@@ -67,40 +67,30 @@ class _Quiz7State extends State<Quiz7> {
       ],
       1,
     ),
-    Question(
-      "คำถาม\n _______ his birthday?",
-      ["What", "What’s", "When", "When’s"],
-      1,
+   Question(
+      "คำถาม\nIce : __your brother __ any dictionaries?\nRon : No, he __.",
+      ["Does, do, haven't", "Do, does, hasn't", "Do, has, doesn't", "Does, have, doesn't"],
+      3,
     ),
-    Question(
-      "คำถาม\n Teacher : ________________?\nStudents : It's November 16th.",
-      [
-        "What were you at 19:00?",
-        " Will you put away your books?",
-        "What's the date today?",
-        "Does you have any boats?"
-      ],
+     Question(
+      "คำถาม\n Teacher : __?\nStudents : It's November 16th.",
+      ["What were you at 19:00?", " Will you put away your books?", "What's the date today?", "Does you have any boats?"],
       2,
     ),
-    Question(
-      "คำถาม\n Nat : Did you go to the candy store last Sunday?\nTol : No, I ________. I _______ to the park.",
+     Question(
+      "คำถาม\n Nat : Did you go to the candy store last Sunday?\nTol : No, I __. I __ to the park.",
       ["didn't, went", " don't, go", "doesn't, go", "didn't, go"],
       1,
     ),
-    Question(
-      "คำถาม\n Namo : ____________?\nYuri : I'm going to play basketball.",
-      [
-        "Where were you yesterday?",
-        "What are you going to do today? ",
-        "Are you going to play basketball?",
-        "Were you at the park?"
-      ],
+     Question(
+      "คำถาม\n Namo : __?\nYuri : I'm going to play basketball.",
+      ["Where were you yesterday?", "What are you going to do today? ", "Are you going to play basketball?", "Were you at the park?"],
       1,
     ),
-    Question(
-      "คำถาม\n _______ his birthday?",
+     Question(
+      "คำถาม\n ___ his birthday?",
       ["What", " What's", "When", "When's"],
-      0,
+      2,
     ),
     // More questions...
   ];

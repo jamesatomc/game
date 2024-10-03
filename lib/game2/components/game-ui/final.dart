@@ -70,89 +70,92 @@ class _FinalState extends State<Final> with WidgetsBindingObserver {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/01.png'), // ใช้พื้นหลังแบบพิกเซล
-            fit: BoxFit.cover,
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/01.png'), // ใช้พื้นหลังแบบพิกเซล
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-        child: Center(
-          child: Stack(
+        Positioned(
+          top: 20,
+          left: 10,
+         child: CircleAvatar(
+            radius: 30, // กำหนดขนาดวงกลม
+            backgroundColor: Colors.black.withOpacity(0.5), // สีพื้นหลังโปร่งแสง
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: 30,
+              ),
+              onPressed: () {
+                _stopBackgroundMusic();
+                _audioPlayer.stop(); // หยุดเสียงก่อนกลับหน้าหลัก
+                Navigator.of(context).pop();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const GameJump()),
+                );
+              },
+            ),
+          ),
+        ),
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
+              AnimatedTextKit(
+                animatedTexts: [
+                  TyperAnimatedText(
+                    'คุณคือผู้ชนะ! โลกแห่งนี้จะจดจำคุณตลอดไป!',
+                    textStyle: const TextStyle(
+                      fontFamily: 'Itim-Regular',
+                      fontSize: 35,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 0,
+                          color: Colors.redAccent,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                    speed: const Duration(milliseconds: 100),
+                  ),
+                ],
+                totalRepeatCount: 1,
+                pause: const Duration(seconds: 1),
+                displayFullTextOnTap: true,
+                stopPauseOnTap: true,
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 50),
-                  AnimatedTextKit(
-                    animatedTexts: [
-                      TyperAnimatedText(
-                        'คุณคือผู้ชนะ! โลกแห่งนี้จะจดจำคุณตลอดไป!',
-                        textStyle: const TextStyle(
-                          fontFamily: 'Itim-Regular',
-                          fontSize: 35,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 0,
-                              color: Colors.redAccent,
-                              offset: Offset(2, 2),
-                            ),
-                          ],
-                        ),
-                        speed: const Duration(milliseconds: 100),
-                      ),
-                    ],
-                    totalRepeatCount: 1,
-                    pause: const Duration(seconds: 1),
-                    displayFullTextOnTap: true,
-                    stopPauseOnTap: true,
+                  Image.asset(
+                    'assets/images/final.gif',
+                    height: 120,
+                    width: 100,
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/final.gif', // ระบุเส้นทางของรูปภาพ
-                        height: 120,
-                        width: 100,
-                      ),
-                      Image.asset(
-                        'assets/images/final.gif', // ระบุเส้นทางของรูปภาพ
-                        height: 120,
-                        width: 100,
-                      ),
-                      
-                    ],
+                  Image.asset(
+                    'assets/images/final2.gif',
+                    height: 120,
+                    width: 100,
                   ),
-                  ElevatedButton(
-                        onPressed: () {
-                          _stopBackgroundMusic();
-                          FlameAudio.bgm.stop();
-                          Navigator.of(context).pop();
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const GameJump()),
-                          );
-                        },
-                        child: Text(
-                          'กลับหน้าหลัก',
-                          style: TextStyle(
-                            fontFamily: 'Itim-Regular',
-                            fontSize: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                 ],
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
+      ],
+    ),
+  );
+}
 }

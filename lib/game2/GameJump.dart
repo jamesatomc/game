@@ -724,7 +724,8 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         PixelLevelButton2(
                           level: 8,
                           isUnlocked:
-                              level7CoinScore != null && level7CoinScore! >= 16,
+                            true,
+                              // level7CoinScore != null && level7CoinScore! >= 16,
                           nextScreen:
                               Quiz8(onResumeMusic: _playBackgroundMusic),
                           onTapUp: () {},
@@ -748,7 +749,8 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         PixelLevelButton2(
                           level: 10,
                           isUnlocked:
-                              level9CoinScore != null && level9CoinScore! >= 18,
+                          true,
+                              // level9CoinScore != null && level9CoinScore! >= 18,
                           nextScreen:
                               Quiz10(onResumeMusic: _playBackgroundMusic),
                           onTapUp: () {},

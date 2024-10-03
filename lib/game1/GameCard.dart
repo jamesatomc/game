@@ -25,7 +25,8 @@ class GameCardScreen extends StatefulWidget {
   State<GameCardScreen> createState() => _GameCardScreenState();
 }
 
-class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObserver {
+class _GameCardScreenState extends State<GameCardScreen>
+    with WidgetsBindingObserver {
   int? level1HighScore;
   int? level2HighScore;
   int? level3HighScore;
@@ -84,7 +85,6 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
     WidgetsBinding.instance.addObserver(this);
     _loadHighScores();
     AudioManager.init();
-
   }
 
   @override
@@ -118,7 +118,8 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.black.withOpacity(0.8), // Black transparent background
+          backgroundColor:
+              Colors.black.withOpacity(0.8), // Black transparent background
           title: const Text(
             'สรุปคะแนน',
             style: TextStyle(
@@ -127,98 +128,241 @@ class _GameCardScreenState extends State<GameCardScreen> with WidgetsBindingObse
             ),
           ),
           content: SingleChildScrollView(
+            // ignore: sort_child_properties_last
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Level 1: ${level1HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 1',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน: ${level1HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  'Level 2: ${level2HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 2',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน: ${level2HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  'Level 3: ${level3HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 3',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน: ${level3HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  'Level 4: ${level4HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 4',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน: ${level4HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 10),
+                  ],
                 ),
-                Text(
-                  'Level 5: ${level5HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 5',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน: ${level5HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  'Level 6: ${level6HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 6',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน ${level6HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  'Level 7: ${level7HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 7',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน: ${level7HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  'Level 8: ${level8HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 8',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน: ${level8HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text(
-                  'Level 9: ${level9HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
-                ),
-                Text(
-                  'Level 10: ${level10HighScore ?? '0'}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Total: ${((level1HighScore ?? 0) + (level2HighScore ?? 0) + (level3HighScore ?? 0) + (level4HighScore ?? 0) + (level5HighScore ?? 0) + (level6HighScore ?? 0) + (level7HighScore ?? 0) + (level8HighScore ?? 0) + (level9HighScore ?? 0) + (level10HighScore ?? 0))}',
-                  style: const TextStyle(
-                    fontFamily: 'PixelFont', // Use a pixel art font
-                    fontSize: 16,
-                    color: Colors.white, // White text color for visibility
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Level 9',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'คะแนน: ${level9HighScore ?? '-'}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Text(
+                          'Level 10',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'คะแนน: ${level10HighScore ?? '-'}',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ],
             ),

@@ -642,7 +642,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                   ),
                 ),
               ),
-
+ 
               Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

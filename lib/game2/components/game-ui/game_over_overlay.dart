@@ -1,5 +1,6 @@
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:game_somo/game2/GameJump.dart';
 
 class GameOverOverlay extends StatelessWidget {
   final VoidCallback onRestart;
@@ -87,11 +88,11 @@ class GameOverOverlay extends StatelessWidget {
                               onPressed: () {
                                 FlameAudio.bgm.stop();
                                 Navigator.of(context).pop();
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) => const GameJump()),
-                                // );
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const GameJump()),
+                                );
                               },
                               child: Text(
                                 'กลับหน้าหลัก',

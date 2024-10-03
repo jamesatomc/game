@@ -226,6 +226,18 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     prefs.remove('answeredQuestions10');
     prefs.remove('incorrectAnswers10');
 
+    // Reset coin scores
+    prefs.remove('level1CoinScore');
+    prefs.remove('level2CoinScore');
+    prefs.remove('level3CoinScore');
+    prefs.remove('level4CoinScore');
+    prefs.remove('level5CoinScore');
+    prefs.remove('level6CoinScore');
+    prefs.remove('level7CoinScore');
+    prefs.remove('level8CoinScore');
+    prefs.remove('level9CoinScore');
+    prefs.remove('level10CoinScore');
+
     _loadAnswerCounts(); // Reload high scores after reset
     _loadCoinScores();
   }
@@ -733,8 +745,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         PixelLevelButton2(
                           level: 8,
                           isUnlocked:
-                            true,
-                              // level7CoinScore != null && level7CoinScore! >= 16,
+                              level7CoinScore != null && level7CoinScore! >= 16,
                           nextScreen:
                               Quiz8(onResumeMusic: _playBackgroundMusic),
                           onTapUp: () {},
@@ -758,8 +769,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                         PixelLevelButton2(
                           level: 10,
                           isUnlocked:
-                          true,
-                              // level9CoinScore != null && level9CoinScore! >= 18,
+                              level9CoinScore != null && level9CoinScore! >= 18,
                           nextScreen:
                               Quiz10(onResumeMusic: _playBackgroundMusic),
                           onTapUp: () {},

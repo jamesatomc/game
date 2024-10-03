@@ -35,20 +35,26 @@ class _Howtoplay2State extends State<Howtoplay2> {
                       children: [
                         Row(
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.arrow_back),
-                              color: const Color.fromARGB(255, 13, 13, 13),
-                              iconSize: 30,
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
+                            CircleAvatar(
+                                  backgroundColor: Colors.black.withOpacity(0.5),
+                                  radius: 25, // ขนาดของวงกลม
+                                  child: IconButton(
+                                    icon: const Icon(Icons.arrow_back),
+                                    color: const Color.fromARGB(255, 248, 247, 247),
+                                    iconSize: 30,
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
                             Expanded(
                               child: Text(
                                 'How to play',
                                 style: TextStyle(
                                   fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -75,7 +81,8 @@ class _Howtoplay2State extends State<Howtoplay2> {
                                 borderRadius: BorderRadius.circular(60.0),
                               ),
                               child: Text(
-                                "วิธีการเล่น\nเกมจับคู่มหาสนุก\n1. ผู้เล่นจะต้องจับคู่คำศัพท์ภาษาอังกฤษกับรูปภาพให้ถูกต้อง\n""2. ผู้เล่นต้องจับคู่ให้ถูกต้องครบทุกคู่ภายในเวลา 80 วินาที\n3.ผู้เล่นจะต้องจับคู่ให้มีคะแนนรวม 7 คะแนน จึงจะผ่านด่าน",
+                                "วิธีการเล่น\nเกมจับคู่มหาสนุก\n1. ผู้เล่นจะต้องจับคู่คำศัพท์ภาษาอังกฤษกับรูปภาพให้ถูกต้อง\n"
+                                "2. ผู้เล่นต้องจับคู่ให้ถูกต้องครบทุกคู่ภายในเวลา 80 วินาที\n3.ผู้เล่นจะต้องจับคู่ให้มีคะแนนรวม 7 คะแนน จึงจะผ่านด่าน",
                                 textAlign: TextAlign.start,
                                 style: const TextStyle(
                                   fontSize: 16,
@@ -87,7 +94,7 @@ class _Howtoplay2State extends State<Howtoplay2> {
                             ),
                           ],
                         ),
-const SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -104,7 +111,8 @@ const SizedBox(height: 10),
                                 borderRadius: BorderRadius.circular(60.0),
                               ),
                               child: Text(
-                                "วิธีการเล่น\nเกมหนูน้อยผจญภัย\n1. ผู้เล่นจะต้องตอบคำถามภาษาอังกฤษให้ถูกทั้งหมด 2 ข้อ  จึงจะเริ่มการผจญภัยได้ \n""2. การควบคุมการเดินไปซ้าย-ขวาตัวละครโดยจอยสติ๊ก\n3. ควบคุมการกระโดดของตัวละครโดยใช้ปุ่ม Jump\n4. จะต้องเก็บเหรียญในด่านให้ครบทุกเหรียญจึงจะปลดล็อคด่านถัดไป\n5. ตัวละครจะมีพลังชีวิตหัวใจ 3 ดวง\n6. เมื่อชนกับมอนสเตอร์หรืออุปสรรคต่างๆตัวละครจะกลับมาจุดเริ่มต้นใหม่ทุกครั้ง และพลังชีวิตจะลดลงทีละ 1 ใจ",
+                                "วิธีการเล่น\nเกมหนูน้อยผจญภัย\n1. ผู้เล่นจะต้องตอบคำถามภาษาอังกฤษให้ถูกทั้งหมด 2 ข้อ  จึงจะเริ่มการผจญภัยได้ \n"
+                                "2. การควบคุมการเดินไปซ้าย-ขวาตัวละครโดยจอยสติ๊ก\n3. ควบคุมการกระโดดของตัวละครโดยใช้ปุ่ม Jump\n4. จะต้องเก็บเหรียญในด่านให้ครบทุกเหรียญจึงจะปลดล็อคด่านถัดไป\n5. ตัวละครจะมีพลังชีวิตหัวใจ 3 ดวง\n6. เมื่อชนกับมอนสเตอร์หรืออุปสรรคต่างๆตัวละครจะกลับมาจุดเริ่มต้นใหม่ทุกครั้ง และพลังชีวิตจะลดลงทีละ 1 ใจ",
                                 textAlign: TextAlign.start,
                                 style: const TextStyle(
                                   fontSize: 16,
@@ -119,7 +127,6 @@ const SizedBox(height: 10),
                               height: 150,
                               width: 150,
                             ),
-                            
                           ],
                         ),
                       ],

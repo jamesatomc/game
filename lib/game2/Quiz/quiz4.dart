@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:game_somo/game2/Level/Jump4.dart';
 import 'dart:math';
 
@@ -21,54 +22,89 @@ class Quiz4 extends StatefulWidget {
 class _Quiz4State extends State<Quiz4> {
   List<Question> questions = [
     // Add your questions here, following the same format as below:
-     Question(
-      "คำถาม\n It’s _____ and _____ in summer. " ,
+    Question(
+      "คำถาม\n It’s _____ and _____ in summer. ",
       [" cool, rainy", "  hot, sunny ", "cool, windy", " cool, sunny"],
       1,
     ),
-     Question(
-      "คำถาม\n It’s _____ and ______in spring." ,
-           ["cool, snowy", " warm, sunny", "cloudy, rainy", "cloudy, warm"],
+    Question(
+      "คำถาม\n It’s _____ and ______in spring.",
+      ["cool, snowy", " warm, sunny", "cloudy, rainy", "cloudy, warm"],
       1,
     ),
-     Question(
-      "คำถาม\n A : ___________________?\nB : It’s cool and snowy. " ,
-      ["What is the weather?", "What’s the weather like in winter? ", "What happened?", "What does she want to be?"],
+    Question(
+      "คำถาม\n A : ___________________?\nB : It’s cool and snowy. ",
+      [
+        "What is the weather?",
+        "What’s the weather like in winter? ",
+        "What happened?",
+        "What does she want to be?"
+      ],
       1,
     ),
-     Question(
-      "คำถาม\n A : ____________\nB : Yes, it is. " ,
-      [" How is the weather in May? ", " Is it hot in May?", "What's the weather like in May? ", "Are they hot in May?"],
+    Question(
+      "คำถาม\n A : ____________\nB : Yes, it is. ",
+      [
+        " How is the weather in May? ",
+        " Is it hot in May?",
+        "What's the weather like in May? ",
+        "Are they hot in May?"
+      ],
       1,
     ),
-     Question(
-      "คำถาม\n A : What’s the weather like in summer?\nB : ______________________" ,
-      ["It's cool and rainy.", "It's sunny and hot.  ", "It's cool and windy.", "It's cold and snowy."],
+    Question(
+      "คำถาม\n A : What’s the weather like in summer?\nB : ______________________",
+      [
+        "It's cool and rainy.",
+        "It's sunny and hot.  ",
+        "It's cool and windy.",
+        "It's cold and snowy."
+      ],
       1,
     ),
-     Question(
-      "คำถาม\n Ken : __________________?\nBird : I want to be a pilot. " ,
-      ["What is this?", " What do you do? ", "What do you want to be?", "What are you doing?"],
+    Question(
+      "คำถาม\n Ken : __________________?\nBird : I want to be a pilot. ",
+      [
+        "What is this?",
+        " What do you do? ",
+        "What do you want to be?",
+        "What are you doing?"
+      ],
       2,
     ),
-     Question(
-      "คำถาม\n คําใดออกเสียง /d/ ท้ายพยางค์" ,
+    Question(
+      "คำถาม\n คําใดออกเสียง /d/ ท้ายพยางค์",
       ["helped", " painted", "listened", "visited"],
       2,
     ),
-     Question(
-      "คำถาม\n A : What does he do?\nB : ______________." ,
-      ["He works in the hospital.", " He is teaching English now.", "He is a doctor.", "He is at home."],
+    Question(
+      "คำถาม\n A : What does he do?\nB : ______________.",
+      [
+        "He works in the hospital.",
+        " He is teaching English now.",
+        "He is a doctor.",
+        "He is at home."
+      ],
       2,
     ),
-     Question(
-      "คำถาม\n A : ___________________\nB : He is a mail carrier. " ,
-      ["What is this? ", "Whose is this book? ", "What is he doing?", "What does your father do?"],
+    Question(
+      "คำถาม\n A : ___________________\nB : He is a mail carrier. ",
+      [
+        "What is this? ",
+        "Whose is this book? ",
+        "What is he doing?",
+        "What does your father do?"
+      ],
       3,
     ),
-     Question(
-      "คำถาม\n Tom : What _____ you _____ last Sunday?\nNat : I _____ TV" ,
-      ["do, do, watch ", "do, doing, watched ", "did, does, watches ", "did, do, watched "],
+    Question(
+      "คำถาม\n Tom : What _____ you _____ last Sunday?\nNat : I _____ TV",
+      [
+        "do, do, watch ",
+        "do, doing, watched ",
+        "did, does, watches ",
+        "did, do, watched "
+      ],
       3,
     ),
     // More questions...
@@ -80,6 +116,8 @@ class _Quiz4State extends State<Quiz4> {
   bool showAnswer = false;
   int incorrectAnswers = 0;
   int answeredQuestions = 0;
+  int incorrectAnswers4 = 0;
+  int answeredQuestions4 = 0;
   final int maxIncorrectAnswers = 2;
   final int totalQuestions = 2;
   final Random random = Random();
@@ -90,6 +128,21 @@ class _Quiz4State extends State<Quiz4> {
     super.initState();
     remainingQuestions = List.from(questions);
     _loadRandomQuestion();
+    _loadAnswerCounts();
+  }
+
+  Future<void> _loadAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      incorrectAnswers4 = prefs.getInt('incorrectAnswers4') ?? 0;
+      answeredQuestions4 = prefs.getInt('answeredQuestions4') ?? 0;
+    });
+  }
+
+  Future<void> _saveAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('incorrectAnswers4', incorrectAnswers4);
+    await prefs.setInt('answeredQuestions4', answeredQuestions4);
   }
 
   void _loadRandomQuestion() {
@@ -113,12 +166,14 @@ class _Quiz4State extends State<Quiz4> {
       if (selectedIndex == currentQuestion.correctAnswerIndex) {
         _playCorrectAnswerSound();
         answeredQuestions++;
+        answeredQuestions4++;
       } else {
         _playIncorrectAnswerSound();
         incorrectAnswers++;
+        incorrectAnswers4++;
       }
+      _saveAnswerCounts();
     });
-
 
     // Delay to show the answer before loading the next question
     Future.delayed(const Duration(seconds: 3), () {
@@ -173,80 +228,82 @@ class _Quiz4State extends State<Quiz4> {
     );
   }
 
-void _showFailScreen() {
-  showDialog(
-    context: context,
-    barrierDismissible: false, // Prevent closing by tapping outside
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.black.withOpacity(0.7), // Semi-transparent black background
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        title: Column(
-          children: [
-            Icon(
-              Icons.error_outline,
-              color: Colors.red,
-              size: 50,
-            ),
-            SizedBox(height: 10),
-            Text(
-              'เสียใจด้วย',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            ),
-          ],
-        ),
-        content: Text(
-          'คุณต้องการลองอีกครั้งหรือไม่?',
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.white, // Ensure text is readable on dark background
+  void _showFailScreen() {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevent closing by tapping outside
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.black
+              .withOpacity(0.7), // Semi-transparent black background
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
           ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // ปิด AlertDialog
-                Navigator.pop(context); // กลับไปหน้าหลัก
-                widget.onResumeMusic?.call(); // Call the function to resume music
-              },
-              child: Text(
-                'ออกจากเกม',
+          title: Column(
+            children: [
+              Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 50,
+              ),
+              SizedBox(height: 10),
+              Text(
+                'เสียใจด้วย',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),
               ),
+            ],
+          ),
+          content: Text(
+            'คุณต้องการลองอีกครั้งหรือไม่?',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white, // Ensure text is readable on dark background
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _resetQuiz();
-              },
-              child: Text(
-                'ลองอีกครั้ง',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.green,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // ปิด AlertDialog
+                  Navigator.pop(context); // กลับไปหน้าหลัก
+                  widget.onResumeMusic
+                      ?.call(); // Call the function to resume music
+                },
+                child: Text(
+                  'ออกจากเกม',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      );
-    },
-  );
-}
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _resetQuiz();
+                },
+                child: Text(
+                  'ลองอีกครั้ง',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.green,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 // void showExitDialog(BuildContext context, Function? onResumeMusic) {
 //     showDialog(
@@ -306,14 +363,13 @@ void _showFailScreen() {
                       children: [
                         const SizedBox(height: 30),
                         Expanded(
-                                child: Text(
-                                  'Quiz',
-                                  style: TextStyle(
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.bold,color: const Color.fromARGB(255, 3, 232, 221))
-                                  ),
-                                ),
-                              
+                          child: Text('Quiz',
+                              style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      const Color.fromARGB(255, 3, 232, 221))),
+                        ),
                         Row(
                           children: [
                             const SizedBox(width: 30),

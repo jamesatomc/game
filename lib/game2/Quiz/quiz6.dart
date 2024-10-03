@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:game_somo/game2/Level/Jump6.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 
 import '../../components/game_button.dart';
@@ -74,12 +75,14 @@ class _Quiz6State extends State<Quiz6> {
     // More questions...
   ];
 
-      late List<Question> remainingQuestions;
+  late List<Question> remainingQuestions;
   late Question currentQuestion;
   int? selectedAnswerIndex;
   bool showAnswer = false;
   int incorrectAnswers = 0;
   int answeredQuestions = 0;
+  int incorrectAnswers6 = 0;
+  int answeredQuestions6 = 0;
   final int maxIncorrectAnswers = 2;
   final int totalQuestions = 2;
   final Random random = Random();
@@ -90,6 +93,21 @@ class _Quiz6State extends State<Quiz6> {
     super.initState();
     remainingQuestions = List.from(questions);
     _loadRandomQuestion();
+    _loadAnswerCounts();
+  }
+
+  Future<void> _loadAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      incorrectAnswers6 = prefs.getInt('incorrectAnswers6') ?? 0;
+      answeredQuestions6 = prefs.getInt('answeredQuestions6') ?? 0;
+    });
+  }
+
+  Future<void> _saveAnswerCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('incorrectAnswers6', incorrectAnswers6);
+    await prefs.setInt('answeredQuestions6', answeredQuestions6);
   }
 
   void _loadRandomQuestion() {
@@ -113,12 +131,14 @@ class _Quiz6State extends State<Quiz6> {
       if (selectedIndex == currentQuestion.correctAnswerIndex) {
         _playCorrectAnswerSound();
         answeredQuestions++;
+        answeredQuestions6++;
       } else {
         _playIncorrectAnswerSound();
         incorrectAnswers++;
+        incorrectAnswers6++;
       }
+      _saveAnswerCounts();
     });
-
 
 
     // Delay to show the answer before loading the next question
@@ -248,39 +268,6 @@ void _showFailScreen() {
     },
   );
 }
-
-// void showExitDialog(BuildContext context, Function? onResumeMusic) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text('Exit the game'),
-//           content: Text('Do you want to quit the game?'),
-//           actions: [
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.of(context).pop(); // ปิด AlertDialog
-//                 // ออกจากเกมส์โดยไม่ทำอะไร
-//               },
-//               child: Text('No'),
-//             ),
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//                 Navigator.pushReplacement(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => GameJump()),
-//                     );
-//                     Navigator.of(context).pop();
-//                 onResumeMusic?.call(); // Call the function to resume music
-//               },
-//               child: Text('Yes'),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
 
   @override
   Widget build(BuildContext context) {

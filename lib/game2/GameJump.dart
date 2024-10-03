@@ -813,12 +813,37 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
                       ),
                       IconButton(
                         icon: Icon(Icons.refresh), // Use the desired icon
-                        onPressed: () {
+                        onPressed: () async {
                           _playSound(); // Play sound when button is pressed
-                          resetHighScores();
+                          bool? confirm = await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Confirm Reset"),
+                                content: Text("Are you sure you want to reset high scores?"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text("No"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop(false); // Return false
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text("Yes"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop(true); // Return true
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          _playBackgroundMusic(); // Play background music after dialog is closed
+                          if (confirm == true) {
+                            resetHighScores();
+                          }
                         },
-                        color: const Color.fromARGB(
-                            255, 209, 208, 208), // Set the icon color
+                        color: const Color.fromARGB(255, 209, 208, 208), // Set the icon color
                         iconSize: 35.0, // Set the icon size (adjust as needed)
                       ),
                       // MusicToggleButton

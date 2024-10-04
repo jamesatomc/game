@@ -66,6 +66,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
   int? answeredQuestions10;
   int? incorrectAnswers10;
 
+  late AudioPlayer _backgroundAudioPlayer;
   late AudioPlayer _audioPlayer;
   bool _isMusicPlaying = false; // Flag to track music playback
 
@@ -74,6 +75,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _audioPlayer = AudioPlayer();
+    _backgroundAudioPlayer = AudioPlayer();
     _playBackgroundMusic();
     _loadCoinScores();
     _loadAnswerCounts();
@@ -83,6 +85,7 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _audioPlayer.dispose();
+    _backgroundAudioPlayer.dispose();
     super.dispose();
   }
 
@@ -95,50 +98,50 @@ class _GameJumpState extends State<GameJump> with WidgetsBindingObserver {
     }
   }
 
-  Future<void> _playBackgroundMusic() async {
-    if (!_isMusicPlaying) {
-      // Only play if not already playing
-      try {
-        await _audioPlayer.play(AssetSource('audio/lofi.mp3'), volume: 0.5);
-        setState(() {
-          _isMusicPlaying = true;
-        });
-        print('Background music started');
-      } catch (e) {
-        print('Error playing background music: $e');
-      }
-    }
-  }
-  
-  void _pauseBackgroundMusic() {
-    if (_isMusicPlaying) {
-      _audioPlayer.pause();
-      setState(() {
-        _isMusicPlaying = false;
-      });
-      print('Background music paused');
-    }
-  }
-  
-  void _resumeBackgroundMusic() {
-    if (!_isMusicPlaying) {
-      _audioPlayer.resume();
+Future<void> _playBackgroundMusic() async {
+  if (!_isMusicPlaying) {
+    // Only play if not already playing
+    try {
+      await _backgroundAudioPlayer.play(AssetSource('audio/lofi.mp3'), volume: 0.5);
       setState(() {
         _isMusicPlaying = true;
       });
-      print('Background music resumed');
+      print('Background music started');
+    } catch (e) {
+      print('Error playing background music: $e');
     }
   }
+}
   
-  void _stopBackgroundMusic() {
-    if (_isMusicPlaying) {
-      _audioPlayer.stop();
-      setState(() {
-        _isMusicPlaying = false;
-      });
-      print('Background music stopped');
-    }
+void _pauseBackgroundMusic() {
+  if (_isMusicPlaying) {
+    _backgroundAudioPlayer.pause();
+    setState(() {
+      _isMusicPlaying = false;
+    });
+    print('Background music paused');
   }
+}
+
+void _resumeBackgroundMusic() {
+  if (!_isMusicPlaying) {
+    _backgroundAudioPlayer.resume();
+    setState(() {
+      _isMusicPlaying = true;
+    });
+    print('Background music resumed');
+  }
+}
+
+void _stopBackgroundMusic() {
+  if (_isMusicPlaying) {
+    _backgroundAudioPlayer.stop();
+    setState(() {
+      _isMusicPlaying = false;
+    });
+    print('Background music stopped');
+  }
+}
 
   Future<void> _loadCoinScores() async {
     final prefs = await SharedPreferences.getInstance();

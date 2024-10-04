@@ -851,7 +851,7 @@ void _stopBackgroundMusic() {
                       ),
                       // MusicToggleButton
                       IconButton(
-                        icon: Icon(_isMusicPlaying ? Icons.music_note : Icons.music_off),
+                        icon: Icon(_isMusicPlaying ? Icons.music_off : Icons.music_note),
                         color: const Color.fromARGB(255, 209, 208, 208),
                         iconSize: 35.0,
                         onPressed: () {

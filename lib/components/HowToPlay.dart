@@ -36,18 +36,18 @@ class _Howtoplay2State extends State<Howtoplay2> {
                         Row(
                           children: [
                             CircleAvatar(
-                                  backgroundColor: Colors.black.withOpacity(0.5),
-                                  radius: 25, // ขนาดของวงกลม
-                                  child: IconButton(
-                                    icon: const Icon(Icons.arrow_back),
-                                    color: const Color.fromARGB(255, 248, 247, 247),
-                                    iconSize: 30,
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
+                              backgroundColor: Colors.black.withOpacity(0.5),
+                              radius: 25, // ขนาดของวงกลม
+                              child: IconButton(
+                                icon: const Icon(Icons.arrow_back),
+                                color: const Color.fromARGB(255, 248, 247, 247),
+                                iconSize: 30,
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 10),
                             Expanded(
                               child: Text(
                                 'How to play',
@@ -71,7 +71,7 @@ class _Howtoplay2State extends State<Howtoplay2> {
                             ),
                             // const SizedBox(width: 10),
                             Container(
-                              height: 150,
+                              height: 390,
                               width: 450,
                               alignment: Alignment.center,
                               padding: const EdgeInsets.all(10.0),
@@ -82,7 +82,7 @@ class _Howtoplay2State extends State<Howtoplay2> {
                               ),
                               child: Text(
                                 "วิธีการเล่น\nเกมจับคู่มหาสนุก\n1. ผู้เล่นจะต้องจับคู่คำศัพท์ภาษาอังกฤษกับรูปภาพให้ถูกต้อง\n"
-                                "2. ผู้เล่นต้องจับคู่ให้ถูกต้องครบทุกคู่ภายในเวลา 80 วินาที\n3.ผู้เล่นจะต้องจับคู่ให้มีคะแนนรวม 7 คะแนน จึงจะผ่านด่าน",
+                                "2. ผู้เล่นต้องจับคู่ให้ถูกต้องครบทุกคู่ภายในเวลา 80 วินาที\n3.ในด่านที่ 1-3 ผู้เล่นจะต้องจับคู่การ์ดให้ได้คะแนนรวมเท่ากับ 4 คะแนนจึงจะผ่านด่าน\n4.ในด่านที่ 4-6 จับคู่การ์ดให้ได้คะแนนรวมเท่ากับ 5 คะแนนจึงจะผ่านด่าน\n5.ในด่านที่ 7-9 จับคู่การ์ดให้ได้คะแนนรวมเท่ากับ 6 คะแนนจึงจะผ่านด่าน\n6.ในด่านที่ 10 จับคู่การ์ดให้ได้คะแนนรวมเท่ากับ 10 คะแนนจึงจะผ่านด่าน ",
                                 textAlign: TextAlign.start,
                                 style: const TextStyle(
                                   fontSize: 16,

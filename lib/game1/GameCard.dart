@@ -535,8 +535,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         const SizedBox(width: 10),
                         PixelLevelButton(
                           level: 10,
-                          isUnlocked:
-                              level9HighScore != null && level9HighScore! >= 10,
+                          isUnlocked: level9HighScore != null && level9HighScore! >= 6,
                           nextScreen: const Level10Screen(),
                           onTapUp: () {},
                           onTapDown: () {},

@@ -59,7 +59,7 @@ class _Level9ScreenState extends State<Level9Screen> {
   Future<void> _saveHighScore() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (score > level9HighScore) {
-      prefs.setInt('leve91HighScore', score.toInt()); // บันทึก high score ลง SharedPreferences
+      prefs.setInt('level9HighScore', score.toInt()); // บันทึก high score ลง SharedPreferences
       setState(() {
         level9HighScore = score.toInt(); // อัปเดต high score ใน state
       });
@@ -163,8 +163,7 @@ class _Level9ScreenState extends State<Level9Screen> {
       _timeLeft = 80;
       revealedCards.clear();
       matchedCardIndices.clear(); // เริ่มต้น list ของไพ่ที่จับคู่กันแล้ว
-      _game.gameImg = List.filled(_game.cardCount, _game.hiddenCardpath); // Hide all cards again
-      startTimer();
+      _game.gameImg = _game.cards_list; // Reveal all cards again
     });
   }
 

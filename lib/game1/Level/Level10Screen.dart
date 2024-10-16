@@ -107,7 +107,7 @@ class _Level10ScreenState extends State<Level10Screen> {
             TextButton(
               child: Text('Passed every checkpoint'),
               onPressed: () {
-                if (score >= 8) {
+                if (score >= 10) {
                   // เพิ่มเงื่อนไขตรวจสอบคะแนน
                   Navigator.of(context).pop();
                   Navigator.pushReplacement(
@@ -120,7 +120,7 @@ class _Level10ScreenState extends State<Level10Screen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
-                            'You need at least 8 points to proceed to Level 10.')),
+                            'You need at least 10 points to proceed to Level 10.')),
                   );
                 }
               },
@@ -177,7 +177,7 @@ class _Level10ScreenState extends State<Level10Screen> {
 
       if (_game.checkMatch(firstIndex, secondIndex)) {
         setState(() {
-          score += 1.428571428571429; // เพิ่มคะแนน 1.428571428571429 คะแนนเมื่อจับคู่ถูก
+          score += 2; // เพิ่มคะแนน 1.428571428571429 คะแนนเมื่อจับคู่ถูก
           matchedPairs++;
           matchedCardIndices.addAll(
               [firstIndex, secondIndex]); // เพิ่ม index ของไพ่ที่จับคู่กันแล้ว
@@ -192,8 +192,8 @@ class _Level10ScreenState extends State<Level10Screen> {
       } else {
         // จับคู่ผิด ไม่ให้คะแนน และอาจลดคะแนนถ้าต้องการ
         setState(() {
-          score = score > 0.5
-              ? score - 0.5
+          score = score > 1
+              ? score - 1
               : 0; // ลดคะแนน 0.5 คะแนนเมื่อจับคู่ผิด แต่ไม่ติดลบ
           mismatchedCardIndices = [
             firstIndex,

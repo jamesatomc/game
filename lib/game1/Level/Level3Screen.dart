@@ -108,7 +108,7 @@ class _Level3ScreenState extends State<Level3Screen> {
             TextButton(
               child: Text('Next Leve 4'),
               onPressed: () {
-                if (score >= 6) {
+                if (score >= 4) {
                   // เพิ่มเงื่อนไขตรวจสอบคะแนน
                   Navigator.of(context).pop();
                   Navigator.pushReplacement(
@@ -121,7 +121,7 @@ class _Level3ScreenState extends State<Level3Screen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
-                            'You need at least 6 points to proceed to Level 4.')),
+                            'You need at least 4 points to proceed to Level 4.')),
                   );
                 }
               },
@@ -178,7 +178,7 @@ class _Level3ScreenState extends State<Level3Screen> {
 
       if (_game.checkMatch(firstIndex, secondIndex)) {
         setState(() {
-          score += 2.5; // เพิ่มคะแนน 2.5 คะแนนเมื่อจับคู่ถูก
+          score += 2; // เพิ่มคะแนน 2.5 คะแนนเมื่อจับคู่ถูก
           matchedPairs++;
           matchedCardIndices.addAll(
               [firstIndex, secondIndex]); // เพิ่ม index ของไพ่ที่จับคู่กันแล้ว
@@ -194,8 +194,8 @@ class _Level3ScreenState extends State<Level3Screen> {
       } else {
         // จับคู่ผิด ไม่ให้คะแนน และอาจลดคะแนนถ้าต้องการ
         setState(() {
-          score = score > 1.5
-              ? score - 1.5
+          score = score > 1
+              ? score - 1
               : 0; // ลดคะแนน 1.5 คะแนนเมื่อจับคู่ผิด แต่ไม่ติดลบ
           mismatchedCardIndices = [
             firstIndex,

@@ -453,7 +453,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         PixelLevelButton(
                           level: 2,
                           isUnlocked:
-                              level1HighScore != null && level1HighScore! >= 6,
+                              level1HighScore != null && level1HighScore! >= 4,
                           nextScreen: const Level2Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -463,7 +463,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         PixelLevelButton(
                           level: 3,
                           isUnlocked:
-                              level2HighScore != null && level2HighScore! >= 6,
+                              level2HighScore != null && level2HighScore! >= 4,
                           nextScreen: const Level3Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -473,7 +473,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         PixelLevelButton(
                           level: 4,
                           isUnlocked:
-                              level3HighScore != null && level3HighScore! >= 7,
+                              level3HighScore != null && level3HighScore! >= 4,
                           nextScreen: const Level4Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -483,7 +483,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         PixelLevelButton(
                           level: 5,
                           isUnlocked:
-                              level4HighScore != null && level4HighScore! >= 7,
+                              level4HighScore != null && level4HighScore! >= 5,
                           nextScreen: const Level5Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -499,7 +499,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         PixelLevelButton(
                           level: 6,
                           isUnlocked:
-                              level5HighScore != null && level5HighScore! >= 7,
+                              level5HighScore != null && level5HighScore! >= 5,
                           nextScreen: const Level6Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -508,8 +508,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         const SizedBox(width: 10),
                         PixelLevelButton(
                           level: 7,
-                          isUnlocked: level6HighScore != null &&
-                              level6HighScore! >= 7.5,
+                          isUnlocked: level6HighScore != null && level6HighScore! >= 5,
                           nextScreen: const Level7Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -518,8 +517,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         const SizedBox(width: 10),
                         PixelLevelButton(
                           level: 8,
-                          isUnlocked: level7HighScore != null &&
-                              level7HighScore! >= 7.5,
+                          isUnlocked: level7HighScore != null && level7HighScore! >= 6,
                           nextScreen: const Level8Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -528,8 +526,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         const SizedBox(width: 10),
                         PixelLevelButton(
                           level: 9,
-                          isUnlocked: level8HighScore != null &&
-                              level8HighScore! >= 7.5,
+                          isUnlocked: level8HighScore != null && level8HighScore! >= 6,
                           nextScreen: const Level9Screen(),
                           onTapUp: () {},
                           onTapDown: () {},
@@ -539,7 +536,7 @@ class _GameCardScreenState extends State<GameCardScreen>
                         PixelLevelButton(
                           level: 10,
                           isUnlocked:
-                              level9HighScore != null && level9HighScore! >= 8,
+                              level9HighScore != null && level9HighScore! >= 10,
                           nextScreen: const Level10Screen(),
                           onTapUp: () {},
                           onTapDown: () {},

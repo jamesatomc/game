@@ -108,7 +108,7 @@ class _Level5ScreenState extends State<Level5Screen> {
             TextButton(
               child: Text('Next Leve 6'),
               onPressed: () {
-                if (score >= 6) {
+                if (score >= 5) {
                   // เพิ่มเงื่อนไขตรวจสอบคะแนน
                   Navigator.of(context).pop();
                   Navigator.pushReplacement(
@@ -121,7 +121,7 @@ class _Level5ScreenState extends State<Level5Screen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
-                            'You need at least 7 points to proceed to Level 6.')),
+                            'You need at least 5 points to proceed to Level 6.')),
                   );
                 }
               },
@@ -193,8 +193,8 @@ class _Level5ScreenState extends State<Level5Screen> {
       } else {
         // จับคู่ผิด ไม่ให้คะแนน และอาจลดคะแนนถ้าต้องการ
         setState(() {
-          score = score > 1.5
-              ? score - 1.5
+          score = score > 1
+              ? score - 1
               : 0; // ลดคะแนน 1.5 คะแนนเมื่อจับคู่ผิด แต่ไม่ติดลบ
           mismatchedCardIndices = [
             firstIndex,

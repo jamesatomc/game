@@ -108,7 +108,7 @@ class _Level8ScreenState extends State<Level8Screen> {
             TextButton(
               child: Text('Next Leve 9'),
               onPressed: () {
-                if (score >= 7.5) {
+                if (score >= 6) {
                   // เพิ่มเงื่อนไขตรวจสอบคะแนน
                   Navigator.of(context).pop();
                   Navigator.pushReplacement(
@@ -121,7 +121,7 @@ class _Level8ScreenState extends State<Level8Screen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
-                            'You need at least 7.5 points to proceed to Level 9.')),
+                            'You need at least 6 points to proceed to Level 9.')),
                   );
                 }
               },
@@ -177,7 +177,7 @@ class _Level8ScreenState extends State<Level8Screen> {
 
       if (_game.checkMatch(firstIndex, secondIndex)) {
         setState(() {
-          score += 1.666666666666667; // เพิ่มคะแนน 1.666666666666667 คะแนนเมื่อจับคู่ถูก
+          score += 2; // เพิ่มคะแนน 1.666666666666667 คะแนนเมื่อจับคู่ถูก
           matchedPairs++;
           matchedCardIndices.addAll(
               [firstIndex, secondIndex]); // เพิ่ม index ของไพ่ที่จับคู่กันแล้ว

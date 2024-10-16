@@ -121,7 +121,7 @@ class _Level6ScreenState extends State<Level6Screen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text(
-                            'You need at least 7 points to proceed to Level 7.')),
+                            'You need at least 5 points to proceed to Level 7.')),
                   );
                 }
               },
@@ -193,8 +193,8 @@ class _Level6ScreenState extends State<Level6Screen> {
       } else {
         // จับคู่ผิด ไม่ให้คะแนน และอาจลดคะแนนถ้าต้องการ
         setState(() {
-          score = score > 1.5
-              ? score - 1.5
+          score = score > 1
+              ? score - 1
               : 0; // ลดคะแนน 1.5 คะแนนเมื่อจับคู่ผิด แต่ไม่ติดลบ
           mismatchedCardIndices = [
             firstIndex,
